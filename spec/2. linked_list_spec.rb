@@ -177,14 +177,159 @@ describe "array_and_string" do
       y.next = z
       # x -> y -> z
 
-      zipper_merged = zipper_lists(a, x)
+      zipper_merged = zipper_lists_recursively(a, x)
       expect(zipper_merged.data).to eq("a")
       expect(zipper_merged.next).to eq(x)
       expect(zipper_merged.next.next).to eq(b)
       expect(zipper_merged.next.next.next).to eq(y)
     end
     it "test case 2" do
+      s = Node.new("s")
+      t = Node.new("t")
+      s.next = t
 
+      one = Node.new(1)
+      two = Node.new(2)
+      three = Node.new(3)
+      four = Node.new(4)
+      one.next = two
+      two.next = three
+      three.next = four
+
+      
+    end
+  end
+
+  describe "merge_lists" do
+    it "test case 1" do
+      a = Node.new(5)
+      b = Node.new(7)
+      c = Node.new(10)
+      d = Node.new(12)
+      e = Node.new(20)
+      f = Node.new(28)
+      a.next = b
+      b.next = c
+      c.next = d
+      d.next = e
+      e.next = f
+      #a->b->c->d->e->f
+      q = Node.new(6)
+      r = Node.new(8)
+      s = Node.new(9)
+      t = Node.new(25)
+      q.next = r
+      r.next = s
+      s.next = t
+      #q->r->s->t
+      result = merge_lists_recursive(a, q)
+
+      expect(result.data).to eq(5)
+      expect(result.next.data).to eq(6)
+      expect(result.next.next.data).to eq(7)
+      expect(result.next.next.next.data).to eq(8)
+      expect(result.next.next.next.next.data).to eq(9)
+      expect(result.next.next.next.next.next.data).to eq(10)
+      expect(result.next.next.next.next.next.next.data).to eq(12)
+      expect(result.next.next.next.next.next.next.next.data).to eq(20)
+      expect(result.next.next.next.next.next.next.next.next.data).to eq(25)
+      expect(result.next.next.next.next.next.next.next.next.next.data).to eq(28)
+    end
+  end
+
+  describe "is_univalue_list" do
+    it "test case 1" do
+      a = Node.new(7)
+      b = Node.new(7)
+      c = Node.new(7)
+
+      a.next = b
+      b.next = c
+
+      expect(is_univalue_list(a)).to eq(true)
+    end
+    it "test case 2" do
+      a = Node.new(7)
+      b = Node.new(7)
+      c = Node.new(4)
+
+      a.next = b
+      b.next = c
+
+      expect(is_univalue_list(a)).to eq(false)
+    end
+    it "test case 3" do 
+      z = Node.new('z')
+      expect(is_univalue_list(z)).to eq(true)
+    end
+  end
+
+  describe "longest streak" do
+    it "test case 1" do
+      a = Node.new(5)
+      b = Node.new(5)
+      c = Node.new(7)
+      d = Node.new(7)
+      e = Node.new(7)
+      f = Node.new(6)
+
+      a.next = b
+      b.next = c
+      c.next = d
+      d.next = e
+      e.next = f
+
+      # 5 -> 5 -> 7 -> 7 -> 7 -> 6
+      expect(longest_streak(a)).to eq(3) #3
+    end
+    it "test case 2" do 
+      a = Node.new(5)
+      b = Node.new(5)
+
+      a.next = b
+
+      # 5 -> 5
+      expect(longest_streak(a)).to eq(2) # 2
+    end
+  end
+
+  describe "remove node" do
+    it "test case 1" do 
+      a = Node.new("a")
+      b = Node.new("b")
+      c = Node.new("c")
+      d = Node.new("d")
+      e = Node.new("e")
+      f = Node.new("f")
+
+      a.next = b
+      b.next = c
+      c.next = d
+      d.next = e
+      e.next = f
+
+      # a -> b -> c -> d -> e -> f
+
+      expect(remove_node(a, "c")).to eq(a)
+      # a -> b -> d -> e -> f
+    end
+
+    it "test case 2" do 
+      node1 = Node.new("h")
+      node2 = Node.new("i")
+      node3 = Node.new("j")
+      node4 = Node.new("i")
+
+      node1.next = node2
+      node2.next = node3
+      node3.next = node4
+
+      # h -> i -> j -> i
+      remove_node(node1, "i")
+      require 'pry'; binding.pry
+      expect(remove_node(node1, "i")).to eq(node1)
+      
+      # h -> j -> i
     end
   end
 end
