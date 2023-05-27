@@ -258,7 +258,169 @@ def longest_streak(head)
   end
   return max_streak
 end
+#______________________________________________________________________
 
+#Time: O(n) Space: O(1)
 def remove_node(head, target)
+  if head.data == target
+    return head.next
+  end
+  prev = nil
+  current = head
+  while current != nil
+    if current.data == target  
+      prev.next = current.next
+      break
+    end
+    prev = current
+    current = current.next
+  end
+  head
+end
+#Time: O(n) Space: O(n)
+def remove_node_recursively(head,target)
+  if head == nil
+    return nil
+  end
+  if head.data == target
+    return head.next
+  end
+  head.next = remove_node_recursively(head.next, target)
+  return head
+end
+#______________________________________________________________________
+# n = number of nodes, Time: O(n), Space: O(1)
+def insert_node(head, value, index)
+  if index == 0
+    new_head = Node.new(value)
+    new_head.next = head
+    return new_head
+  end
+
+  current = head
+  count = 0
+
+  while current != nil
+    if count == index - 1
+      temp = current.next
+      current.next = Node.new(value)
+      current.next.next = temp
+    end
+
+    count += 1
+    current = current.next
+  end
   
+  return head
+end
+
+#n = number of nodes, Time: O(n^2), Space: O(n)
+def insert_node_recursively(head,value,index,count=0)
+  if index == 0
+    new_head = Node.new(value)
+    new_head.next = head
+    return new_head
+  end
+
+  if head == nil
+    return nil
+  end
+
+  if count == index - 1
+    temp = head.next
+    head.next = Node.new(value)
+    head.next.next = temp
+  end
+
+  insert_node_recursively(head.next,value,index,count+1)
+  return head
+end
+
+#______________________________________________________________________
+#n = length of values, Time: O(n), Space: O(n)
+def create_linked_list(values)
+  dummy_head = Node.new(nil)
+  tail = dummy_head
+  values.each do |value|
+    tail.next = Node.new(value)
+    tail = tail.next
+  end
+  return dummy_head.next
+end
+
+#n = length of values, Time: O(n), Space: O(n)
+def create_linked_list_recursive(values)
+  if values.length == 0
+    return nil
+  end
+  head = Node.new(values[0])
+  head.next = create_linked_list_recursive(values[1..-1])
+  return head
+end
+
+#n = length of values, Time: O(n), Space: O(n)
+def create_linked_list_best_recursive(values, i = 0)
+  if i == values.length 
+    return nil
+  end
+  head = Node.new(values[i])
+  head.next = create_linked_list_best_recursive(values, i+1)
+  return head
+end
+
+#______________________________________________________________________
+def add_lists(head_1,head_2)
+  dummy_head = Node.new(nil)
+  tail = dummy_head
+
+  carry = 0
+  current_1 = head_1
+  current_2 = head_2
+
+  while current_1 != nil || current_2 != nil || carry == 1
+    val_1 = current_1.nil? ? 0 : current_1.data
+    val_2 = current_2.nil? ? 0 : current_2.data
+
+    sum = val_1 + val_2 + carry
+    carry = sum > 9 ? 1 : 0
+    digit = sum % 10
+
+
+    tail.next = Node.new(digit)
+    tail = tail.next
+
+    if current_1 != nil
+      current_1 = current_1.next
+    end
+    
+    if current_2 != nil
+      current_2 = current_2.next
+    end
+
+  end
+
+  return dummy_head.next
+end
+
+
+def add_lists_rec(head_1,head_2, carry = 0)
+  if head_1 == nil && head_2 == nil && carry == 0
+    return nil
+  end
+
+  val_1 = head_1.nil? ? 0 : head_1.data
+  val_2 = head_2.nil? ? 0 : head_2.data #Edge case if one list is longer than the other
+ 
+  sum = val_1 + val_2 + carry
+  next_carry = sum > 9 ? 1 : 0
+
+  digit = sum % 10
+  result = Node.new(digit)
+
+  next_1 = head_1.nil? ? nil : head_1.next
+  next_2 = head_2.nil? ? nil : head_2.next # Edge case if one list is longer than the other
+
+  result.next = add_lists_rec(next_1, next_2, next_carry)
+
+  return result
 end
