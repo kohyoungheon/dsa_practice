@@ -369,6 +369,7 @@ def create_linked_list_best_recursive(values, i = 0)
 end
 
 #______________________________________________________________________
+# n = length of list 1, m = length of list 2, Time: O(max(n, m)), Space: O(max(n, m))
 def add_lists(head_1,head_2)
   dummy_head = Node.new(nil)
   tail = dummy_head
@@ -392,7 +393,7 @@ def add_lists(head_1,head_2)
     if current_1 != nil
       current_1 = current_1.next
     end
-    
+
     if current_2 != nil
       current_2 = current_2.next
     end
@@ -402,7 +403,7 @@ def add_lists(head_1,head_2)
   return dummy_head.next
 end
 
-
+#n = length of list 1, m = length of list 2, Time: O(max(n, m)), Space: O(max(n, m))
 def add_lists_rec(head_1,head_2, carry = 0)
   if head_1 == nil && head_2 == nil && carry == 0
     return nil
