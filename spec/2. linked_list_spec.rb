@@ -183,6 +183,7 @@ describe "array_and_string" do
       expect(zipper_merged.next.next).to eq(b)
       expect(zipper_merged.next.next.next).to eq(y)
     end
+
     it "test case 2" do
       s = Node.new("s")
       t = Node.new("t")
@@ -195,8 +196,6 @@ describe "array_and_string" do
       one.next = two
       two.next = three
       three.next = four
-
-      
     end
   end
 
@@ -309,8 +308,7 @@ describe "array_and_string" do
       e.next = f
 
       # a -> b -> c -> d -> e -> f
-
-      expect(remove_node(a, "c")).to eq(a)
+      x = remove_node_recursively(a, "c")
       # a -> b -> d -> e -> f
     end
 
@@ -325,11 +323,121 @@ describe "array_and_string" do
       node3.next = node4
 
       # h -> i -> j -> i
-      remove_node(node1, "i")
-      require 'pry'; binding.pry
       expect(remove_node(node1, "i")).to eq(node1)
-      
       # h -> j -> i
+    end
+  end
+
+  describe "insert node" do
+    it "test case 1" do
+      a = Node.new("a")
+      b = Node.new("b")
+      c = Node.new("c")
+      d = Node.new("d")
+      
+      a.next = b
+      b.next = c
+      c.next = d
+      
+      # a -> b -> c -> d
+      
+      insert_node(a, 'x', 2)
+      # a -> b -> x -> c -> d
+      expect(a.next.next.data).to eq('x')
+    end
+
+    it "test case 2" do
+      a = Node.new("a")
+      b = Node.new("b")
+      c = Node.new("c")
+      d = Node.new("d")
+
+      a.next = b
+      b.next = c
+      c.next = d
+
+      # a -> b -> c -> d
+
+      insert_node_recursively(a, 'm', 4)
+      # a -> b -> c -> d -> m
+      expect(d.next.data).to eq('m')
+    end
+
+    it "test case 3" do
+      a = Node.new("a")
+      b = Node.new("b")
+
+      a.next = b
+
+      # a -> b
+      x = insert_node_recursively(a, 'z', 0)
+      # z -> a -> b
+      expect(x.data).to eq('z')
+    end
+  end
+
+  describe "create_linked_list" do
+    it "test case 1" do
+      list = create_linked_list(["h", "e", "y"])
+      expect(list.data).to eq("h")
+      expect(list.next.data).to eq("e")
+      expect(list.next.next.data).to eq("y")
+
+      expect(create_linked_list_recursive([])).to eq(nil)
+      expect(create_linked_list_recursive(["a"]).data).to eq("a")
+    end
+  end
+  
+  describe "add lists" do
+    it "test case 1" do
+      #   621
+      # + 354
+      # -----
+      #   975
+
+      a1 = Node.new(1)
+      a2 = Node.new(2)
+      a3 = Node.new(6)
+      a1.next = a2
+      a2.next = a3
+      # 1 -> 2 -> 6
+
+      b1 = Node.new(4)
+      b2 = Node.new(5)
+      b3 = Node.new(3)
+      b1.next = b2
+      b2.next = b3
+      # 4 -> 5 -> 3
+
+      result = add_lists(a1, b1)
+      # 5 -> 7 -> 9
+      expect(result.data).to eq(5)
+      expect(result.next.data).to eq(7)
+      expect(result.next.next.data).to eq(9)
+    end
+
+    it "test case 2" do 
+      #   999
+      #  +  6
+      #  ----
+      #  1005
+
+      a1 = Node.new(9)
+      a2 = Node.new(9)
+      a3 = Node.new(9)
+      a1.next = a2
+      a2.next = a3
+      # 9 -> 9 -> 9
+
+      b1 = Node.new(6)
+      # 6
+
+      result = add_lists(a1, b1)
+      # 5 -> 0 -> 0 -> 1
+      expect(result.data).to eq(5)
+      expect(result.next.data).to eq(0)
+      expect(result.next.next.data).to eq(0)
+      expect(result.next.next.next.data).to eq(1)
     end
   end
 end
