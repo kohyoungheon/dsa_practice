@@ -161,4 +161,60 @@ describe "binary_tree" do
     end
   end
 
+  describe "tree_sum" do
+    it "test case 1" do
+      a = Node.new(3)
+      b = Node.new(11)
+      c = Node.new(4)
+      d = Node.new(4)
+      e = Node.new(-2)
+      f = Node.new(1)
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #       3
+      #    /    \
+      #   11     4
+      #  / \      \
+      # 4   -2     1
+
+      # tree_sum(a)  -> 21
+      expect(tree_sum(a)).to eq(21)
+    end
+
+    it "test case 2" do
+      a = Node.new(1)
+      b = Node.new(6)
+      c = Node.new(0)
+      d = Node.new(3)
+      e = Node.new(-6)
+      f = Node.new(2)
+      g = Node.new(2)
+      h = Node.new(2)
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      f.right = h
+
+      #      1
+      #    /   \
+      #   6     0
+      #  / \     \
+      # 3   -6    2
+      #    /       \
+      #   2         2
+
+      # tree_sum(a)  -> 10
+      expect(tree_sum(a)).to eq(10)
+    end
+  end
+
 end
