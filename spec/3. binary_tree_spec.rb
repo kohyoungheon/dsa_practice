@@ -183,7 +183,7 @@ describe "binary_tree" do
       # 4   -2     1
 
       # tree_sum(a)  -> 21
-      expect(tree_sum(a)).to eq(21)
+      expect(tree_sum_rec(a)).to eq(21)
     end
 
     it "test case 2" do
@@ -213,8 +213,63 @@ describe "binary_tree" do
       #   2         2
 
       # tree_sum(a)  -> 10
-      expect(tree_sum(a)).to eq(10)
+      expect(tree_sum_rec(a)).to eq(10)
     end
   end
 
+  describe "tree_includes" do
+    it "test case 1" do
+      a = Node.new("a")
+      b = Node.new("b")
+      c = Node.new("c")
+      d = Node.new("d")
+      e = Node.new("e")
+      f = Node.new("f")
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #      a
+      #    /   \
+      #   b     c
+      #  / \     \
+      # d   e     f
+
+      # tree_includes(a, "e") # -> True
+      expect(tree_includes(a, "e")).to eq(true)
+    end
+
+    it "test case 2" do
+      a = Node.new("a")
+      b = Node.new("b")
+      c = Node.new("c")
+      d = Node.new("d")
+      e = Node.new("e")
+      f = Node.new("f")
+      g = Node.new("g")
+      h = Node.new("h")
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      f.right = h
+
+      #      a
+      #    /   \
+      #   b     c
+      #  / \     \
+      # d   e     f
+      #    /       \
+      #   g         h
+
+      # tree_includes(a, "p") # -> False
+      expect(tree_includes_rec(a, "p")).to eq(false)
+    end
+  end
 end

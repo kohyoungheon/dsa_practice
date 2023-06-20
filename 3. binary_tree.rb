@@ -37,7 +37,7 @@ def depth_first_values_rec(root)
   return values
 end
 #_______________________________________________________________________________
-
+# n = number of nodes, Time: O(n), Space: O(n)
 def breadth_first_values(root)
   return [] if root.nil?
 
@@ -56,18 +56,58 @@ def breadth_first_values(root)
   end
   return values
 end
+#_______________________________________________________________________________
+#Iterative
+# n = number of nodes, Time: O(n), Space: O(n)
+def tree_sum(root)
+  return 0 if root.nil?
+  total = 0
+  queue = [root]
+
+  while queue.length > 0
+    current = queue.shift
+    total += current.val
+
+    queue << current.left if current.left
+    queue << current.right if current.right
+  end
+  total
+end
 
 #Recursive
-def breadth_first_values_rec(root)
-  return [] if root.nil?
+#n = number of nodes, Time: O(n), Space: O(n)
+def tree_sum_rec(root)
+  return 0 if root.nil?
 
-  values = []
-  values << root.val
-  values += breadth_first_values_rec(root.left) if root.left
-  values += breadth_first_values_rec(root.right) if root.right
-
+  return root.val + tree_sum(root.left) + tree_sum(root.right)
 end
 
-def tree_sum(root)
-  
+#_______________________________________________________________________________
+#Iterative breadth first search
+# n = number of nodes, Time: O(n), Space: O(n)
+def tree_includes(root, target)
+  return false if root.nil?
+
+  queue = [root]
+
+  while queue.length > 0
+    current = queue.shift
+    return true if current.val == target
+
+    queue << current.left if current.left
+    queue << current.right if current.right
+  end
+
+  return false
 end
+#RECURSIVE depth first search
+#n = number of nodes,Time: O(n),Space: O(n)
+def tree_includes_rec(root, target)
+  return false if root.nil?
+
+  return true if root.val == target
+
+  return tree_includes_rec(root.left, target) || tree_includes_rec(root.right, target)
+end
+
+#_______________________________________________________________________________
