@@ -111,3 +111,53 @@ def tree_includes_rec(root, target)
 end
 
 #_______________________________________________________________________________
+
+# Depth first (iterative) n = number of nodes, Time: O(n), Space: O(n)
+def tree_min_value(root)
+  smallest = Float::INFINITY
+  stack = [root]
+  while stack.length > 0
+    current = stack.pop
+    
+    smallest = current.val if current.val < smallest
+    stack << current.left if current.left
+    stack << current.right if current.right
+  end
+  return smallest
+end
+
+#Depth first (recursive), n = number of nodes, Time: O(n), Space: O(n)
+def tree_min_value_rec(root)
+  return Float::INFINITY if root.nil?
+
+  min_left = tree_min_value_rec(root.left)
+  min_right = tree_min_value_rec(root.right)
+
+  return [left, right, root.val].min
+end
+#_______________________________________________________________________________
+
+# Depth first (recursive), n = number of nodes, Time: O(n), Space: O(n)
+def max_path_sum(root)
+  return -Float::INFINITY if root.nil?
+
+  return root.val if root.left.nil? && root.right.nil?
+
+  max_left = max_path_sum(root.left)
+  max_right = max_path_sum(root.right)
+  return [max_left, max_right].max + root.val
+end
+#_______________________________________________________________________________
+
+def path_finder(root, target)
+  return nil if root.nil?
+
+  return [root.val] if root.val == target
+
+  left = path_finder(root.left, target)
+  right = path_finder(root.right, target)
+
+  return left + [root.val] if left
+  return right + [root.val] if right
+  return nil
+end
