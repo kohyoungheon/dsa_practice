@@ -647,4 +647,59 @@ describe "binary_tree" do
       expect(all_tree_paths(a)).to eq([["a", "b", "d"], ["a", "b", "e", "g"], ["a", "b", "e", "h"], ["a", "c", "f", "i"]])
     end
   end
+
+  describe "tree_levels" do
+    it "test case 1" do
+      a = Node.new('a')
+      b = Node.new('b')
+      c = Node.new('c')
+      d = Node.new('d')
+      e = Node.new('e')
+      f = Node.new('f')
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #      a
+      #    /   \
+      #   b     c
+      #  / \     \
+      # d   e     f
+      expect(tree_levels(a)).to eq([["a"], ["b", "c"], ["d", "e", "f"]])
+    end
+
+    it "test case 2" do
+      a = Node.new('a')
+      b = Node.new('b')
+      c = Node.new('c')
+      d = Node.new('d')
+      e = Node.new('e')
+      f = Node.new('f')
+      g = Node.new('g')
+      h = Node.new('h')
+      i = Node.new('i')
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      e.right = h
+      f.left = i
+
+      #         a
+      #      /    \
+      #     b      c
+      #   /  \      \
+      #  d    e      f
+      #      / \    /
+      #     g  h   i
+
+      expect(tree_levels(a)).to eq([["a"], ["b", "c"], ["d", "e", "f"], ["g", "h", "i"]])
+    end
+  end
 end

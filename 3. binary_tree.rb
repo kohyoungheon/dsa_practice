@@ -211,7 +211,71 @@ def bottom_right_value(root)
   
   return current.val
 end
-
+#Recursive, n = number of nodes, Time: O(n), Space: O(n)
 def all_tree_paths(root)
+  return [] if root.nil?
+  
+  return [ [root.val] ] if root.left.nil? && root.right.nil? #leaf node
+
+  paths = []
+  
+  left_sub_paths = all_tree_paths(root.left)
+  left_sub_paths.each do |path|
+    paths << [root.val] + path
+  end
+
+  right_sub_paths = all_tree_paths(root.right)
+  right_sub_paths.each do |path|
+    paths << [root.val] + path
+  end
+  return paths 
+end
+#_______________________________________________________________________________
+#Iterative, n = number of nodes, Time: O(n), Space: O(n)
+def tree_levels(root)
+  return [] if root.nil?
+
+  levels = []
+  stack = [ [root,0] ]
+
+  while stack
+    node, level_num = stack.pop
+
+    if levels.length == level_num
+      levels << [node.val]
+    else
+      levels[level_num] << node.val
+    end
+
+    stack << [node.right, level_num + 1] if node.right
+    stack << [node.left, level_num + 1] if node.left
+  end
+
+  return levels
+end
+
+#RECURSIVE, n = number of nodes, Time: O(n), Space: O(n)
+def tree_levels_rec(root)
+  return [] if root.nil?
+
+  levels = []
+  fill_levels(root, levels, 0)
+  return levels
+end
+
+#Helper method for tree_levels_rec
+def fill_levels(root, levels, level_num)
+  if root = nil
+    return
+  end
+
+  if levels.length == level_num
+    levels << [root.val]
+  else
+    levels[level_num] << root.val
+  end
+
+  fill_levels(root.left, levels, level_num + 1)
+  fill_levels(root.right, levels, level_num + 1)
   
 end
