@@ -305,7 +305,40 @@ def fill_levels_2(root, levels, level_num)
   fill_levels_2(root.right, levels, level_num + 1)
 end
 #_______________________________________________________________________________
+#Depth first iterative, n = number of nodes, Time: O(n), Space: O(n)
+def leaf_list(root)
+  return [] if root.nil?
 
-def leaf_list
-  
+  stack = [ root ]
+  leaves = [ ]
+
+  while stack.length > 0
+
+    current = stack.pop
+
+    leaves << current.val if current.left.nil? && current.right.nil?
+
+    stack << current.right if current.right
+    stack << current.left if current.left
+  end
+
+  leaves
+end
+#Recursive Depth first, n = number of nodes, Time: O(n), Space: O(n)
+def leaf_list_rec(root)
+  return [] if root.nil?
+
+  leaves = []
+  fill_leaves(root, leaves)
+  leaves
+end
+
+#Recursive Helper Method for leaf_list_rec
+def fill_leaves
+  return if root.nil?
+
+  leaves << root.val if root.left.nil? && root.right.nil?
+
+  fill_leaves(root.left, leaves)
+  fill_leaves(root.right, leaves)
 end
