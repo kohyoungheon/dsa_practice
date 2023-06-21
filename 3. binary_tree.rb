@@ -238,7 +238,7 @@ def tree_levels(root)
   levels = []
   stack = [ [root,0] ]
 
-  while stack
+  while stack.length > 0
     node, level_num = stack.pop
 
     if levels.length == level_num
@@ -265,7 +265,7 @@ end
 
 #Helper method for tree_levels_rec
 def fill_levels(root, levels, level_num)
-  if root = nil
+  if root.nil?
     return
   end
 
@@ -278,4 +278,67 @@ def fill_levels(root, levels, level_num)
   fill_levels(root.left, levels, level_num + 1)
   fill_levels(root.right, levels, level_num + 1)
   
+end
+#_______________________________________________________________________________
+#RECURSIVE, n = number of nodes, Time: O(n), Space: O(n)
+def level_averages(root)
+  levels = []
+  fill_levels_2(root, levels, 0)
+  avgs = []
+  levels.each do |level|
+    avgs << level.sum/level.length.to_f
+  end
+  avgs
+end
+
+#Helper method for level_averages
+def fill_levels_2(root, levels, level_num)
+  return if root.nil?
+
+  if levels.length == level_num
+    levels << [root.val]
+  else
+    levels[level_num] << root.val
+  end
+
+  fill_levels_2(root.left, levels, level_num + 1)
+  fill_levels_2(root.right, levels, level_num + 1)
+end
+#_______________________________________________________________________________
+#Depth first iterative, n = number of nodes, Time: O(n), Space: O(n)
+def leaf_list(root)
+  return [] if root.nil?
+
+  stack = [ root ]
+  leaves = [ ]
+
+  while stack.length > 0
+
+    current = stack.pop
+
+    leaves << current.val if current.left.nil? && current.right.nil?
+
+    stack << current.right if current.right
+    stack << current.left if current.left
+  end
+
+  leaves
+end
+#Recursive Depth first, n = number of nodes, Time: O(n), Space: O(n)
+def leaf_list_rec(root)
+  return [] if root.nil?
+
+  leaves = []
+  fill_leaves(root, leaves)
+  leaves
+end
+
+#Recursive Helper Method for leaf_list_rec
+def fill_leaves
+  return if root.nil?
+
+  leaves << root.val if root.left.nil? && root.right.nil?
+
+  fill_leaves(root.left, leaves)
+  fill_leaves(root.right, leaves)
 end
