@@ -238,7 +238,7 @@ def tree_levels(root)
   levels = []
   stack = [ [root,0] ]
 
-  while stack
+  while stack.length > 0
     node, level_num = stack.pop
 
     if levels.length == level_num
@@ -265,7 +265,7 @@ end
 
 #Helper method for tree_levels_rec
 def fill_levels(root, levels, level_num)
-  if root = nil
+  if root.nil?
     return
   end
 
@@ -277,5 +277,35 @@ def fill_levels(root, levels, level_num)
 
   fill_levels(root.left, levels, level_num + 1)
   fill_levels(root.right, levels, level_num + 1)
+  
+end
+#_______________________________________________________________________________
+#RECURSIVE, n = number of nodes, Time: O(n), Space: O(n)
+def level_averages(root)
+  levels = []
+  fill_levels_2(root, levels, 0)
+  avgs = []
+  levels.each do |level|
+    avgs << level.sum/level.length.to_f
+  end
+  avgs
+end
+
+#Helper method for level_averages
+def fill_levels_2(root, levels, level_num)
+  return if root.nil?
+
+  if levels.length == level_num
+    levels << [root.val]
+  else
+    levels[level_num] << root.val
+  end
+
+  fill_levels_2(root.left, levels, level_num + 1)
+  fill_levels_2(root.right, levels, level_num + 1)
+end
+#_______________________________________________________________________________
+
+def leaf_list
   
 end
