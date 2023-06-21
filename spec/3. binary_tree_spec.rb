@@ -437,4 +437,214 @@ describe "binary_tree" do
       expect(path_finder(a, "c")).to eq(['a', 'c'])
     end
   end
+
+  describe "tree_value_count" do
+    it "test case 1" do
+      a = Node.new(12)
+      b = Node.new(6)
+      c = Node.new(6)
+      d = Node.new(4)
+      e = Node.new(6)
+      f = Node.new(12)
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #      12
+      #    /   \
+      #   6     6
+      #  / \     \
+      # 4   6     12
+
+      # tree_value_count(a,  6) # -> 3
+      expect(tree_value_count(a,  6)).to eq(3)
+    end
+
+    it "test case 2" do
+      a = Node.new(7)
+      b = Node.new(5)
+      c = Node.new(1)
+      d = Node.new(1)
+      e = Node.new(8)
+      f = Node.new(7)
+      g = Node.new(1)
+      h = Node.new(1)
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      f.right = h
+
+      #      7
+      #    /   \
+      #   5     1
+      #  / \     \
+      # 1   8     7
+      #    /       \
+      #   1         1
+
+      # tree_value_count(a, 9) # -> 0
+      expect(tree_value_count(a, 9)).to eq(0)
+    end
+  end
+
+  describe "#how_high" do
+    it "test case 1" do
+      a = Node.new('a')
+      b = Node.new('b')
+      c = Node.new('c')
+      d = Node.new('d')
+      e = Node.new('e')
+      f = Node.new('f')
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #      a
+      #    /   \
+      #   b     c
+      #  / \     \
+      # d   e     f
+
+      # how_high(a) # -> 2
+      expect(how_high(a)).to eq(2)
+    end
+    it "test case 2" do
+      a = Node.new('a')
+      c = Node.new('c')
+
+      a.right = c
+
+      #      a
+      #       \
+      #        c
+
+      # how_high(a) # -> 1
+      expect(how_high(a)).to eq(1)
+    end
+  end
+
+  describe "bottom_right_value" do
+    it "test case 1" do
+      a = Node.new(3)
+      b = Node.new(11)
+      c = Node.new(10)
+      d = Node.new(4)
+      e = Node.new(-2)
+      f = Node.new(1)
+      
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      
+      #       3
+      #    /    \
+      #   11     10
+      #  / \      \
+      # 4   -2     1
+      
+      # bottom_right_value(a) # -> 1
+      expect(bottom_right_value(a)).to eq(1)
+    end
+
+    it "test case 2" do
+      a = Node.new(-1)
+      b = Node.new(-6)
+      c = Node.new(-5)
+      d = Node.new(-3)
+      e = Node.new(-4)
+      f = Node.new(-13)
+      g = Node.new(-2)
+      h = Node.new(6)
+      i = Node.new(7)
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      e.right = h
+      f.left = i
+
+      #        -1
+      #      /   \
+      #    -6    -5
+      #   /  \     \
+      # -3   -4   -13
+      #     / \    /   
+      #    -2  6  7 
+
+      # bottom_right_value(a) # -> 7
+      expect(bottom_right_value(a)).to eq(7)
+    end
+  end
+
+  describe "all_tree_paths" do
+    it "test case 1" do
+      a = Node.new('a')
+      b = Node.new('b')
+      c = Node.new('c')
+      d = Node.new('d')
+      e = Node.new('e')
+      f = Node.new('f')
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+
+      #      a
+      #    /   \
+      #   b     c
+      #  / \     \
+      # d   e     f
+
+      expect(all_tree_paths(a)).to eq([["a", "b", "d"], ["a", "b", "e"], ["a", "c", "f"]])
+    end
+
+    it "test case 2" do
+      a = Node.new('a')
+      b = Node.new('b')
+      c = Node.new('c')
+      d = Node.new('d')
+      e = Node.new('e')
+      f = Node.new('f')
+      g = Node.new('g')
+      h = Node.new('h')
+      i = Node.new('i')
+
+      a.left = b
+      a.right = c
+      b.left = d
+      b.right = e
+      c.right = f
+      e.left = g
+      e.right = h
+      f.left = i
+
+      #         a
+      #      /    \
+      #     b      c
+      #   /  \      \
+      #  d    e      f
+      #      / \    /   
+      #     g  h   i 
+
+
+      expect(all_tree_paths(a)).to eq([["a", "b", "d"], ["a", "b", "e", "g"], ["a", "b", "e", "h"], ["a", "c", "f", "i"]])
+    end
+  end
 end
