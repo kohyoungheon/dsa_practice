@@ -94,11 +94,11 @@ describe "graphs" do
   describe "undirected_path" do
     it "test case 1" do
       edges = [
-        ('i', 'j'),
-        ('k', 'i'),
-        ('m', 'k'),
-        ('k', 'l'),
-        ('o', 'n')
+        ['i', 'j'],
+        ['k', 'i'],
+        ['m', 'k'],
+        ['k', 'l'],
+        ['o', 'n']
       ]
       
       # undirected_path(edges, 'j', 'm') # -> True
@@ -106,11 +106,11 @@ describe "graphs" do
     end
     it "test case 2" do
       edges = [
-        ('i', 'j'),
-        ('k', 'i'),
-        ('m', 'k'),
-        ('k', 'l'),
-        ('o', 'n')
+        ['i', 'j'],
+        ['k', 'i'],
+        ['m', 'k'],
+        ['k', 'l'],
+        ['o', 'n']
       ]
       
       # undirected_path(edges, 'k', 'o') # -> False
@@ -119,17 +119,17 @@ describe "graphs" do
 
     it "test case 3" do
       edges = [
-        ('b', 'a'),
-        ('c', 'a'),
-        ('b', 'c'),
-        ('q', 'r'),
-        ('q', 's'),
-        ('q', 'u'),
-        ('q', 't'),
+        ['b', 'a'],
+        ['c', 'a'],
+        ['b', 'c'],
+        ['q', 'r'],
+        ['q', 's'],
+        ['q', 'u'],
+        ['q', 't']
       ]
       
       
-      # undirected_path(edges, 'a', 'b') # -> True
+      undirected_path(edges, 'a', 'b') # -> True
       expect(undirected_path(edges, 'a', 'b')).to eq(true)
     end
   end

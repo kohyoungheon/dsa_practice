@@ -62,6 +62,43 @@ def has_path_breadth(graph, src, dst)
   return false
 end
 #_______________________________________________________________________________
-def undirected_path(edges, node_A, node_B)
+#Helper method
+def build_graph(edges)
+  graph = {}
 
+  edges.each do |edge|
+    a, b = edge
+    graph[a] = [] if graph[a].nil?
+    graph[b] = [] if graph[b].nil?
+    
+    graph[a].push(b)
+    graph[b].push(a)
+  end
+
+  return graph
 end
+
+#Helper Method
+def has_path_2(graph, src, dst, visited)
+
+  return true if src == dst
+  return false if visited.include?(src)
+
+  visited.add(src)
+
+  graph[src].each do |neighbor|
+    if has_path_2(graph, neighbor, dst, visited) == true
+      return true
+    end
+  end
+  return false
+end
+
+#Depth first recursive
+#n = number of nodes, e = number edges, Time: O(e), Space: O(n)
+def undirected_path(edges, node_A, node_B)
+  graph = build_graph(edges)
+  return has_path_2(graph, node_A, node_B, Set.new)
+end
+
+#_______________________________________________________________________________
