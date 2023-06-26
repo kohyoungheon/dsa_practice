@@ -133,4 +133,101 @@ describe "graphs" do
       expect(undirected_path(edges, 'a', 'b')).to eq(true)
     end
   end
+
+  describe "connected components" do
+    it "test case 1" do
+      hash = {
+        3 => [],
+        4 => [6],
+        6 => [4, 5, 7, 8],
+        8 => [6],
+        7 => [6],
+        5 => [6],
+        1 => [2],
+        2 => [1]
+      }
+      expect(connected_components_count(hash)).to eq(3)
+    end
+
+    it "test case 2" do
+      hash = {
+        0 => [8, 1, 5],
+        1 => [0],
+        5 => [0, 8],
+        8 => [0, 5],
+        2 => [3, 4],
+        3 => [2, 4],
+        4 => [3, 2]
+      }
+
+      expect(connected_components_count(hash)).to eq(2)
+    end
+  end
+
+  describe "largest_componenet" do
+    it "test case 1" do
+      hash = {
+        0 => [8, 1, 5],
+        1 => [0],
+        5 => [0, 8],
+        8 => [0, 5],
+        2 => [3, 4],
+        3 => [2, 4],
+        4 => [3, 2]
+      } # -> 4
+
+      expect(largest_component(hash)).to eq(4)
+    end
+
+    it "test case 2" do
+      hash = {
+          1 => [2],
+          2 => [1,8],
+          6 => [7],
+          9 => [8],
+          7 => [6, 8],
+          8 => [9, 7, 2]
+        } # -> 4
+        expect(largest_component(hash)).to eq(6)
+    end
+  end
+
+  describe "shortest_path" do
+    it "test case 1" do
+      edges = [
+        ['w', 'x'],
+        ['x', 'y'],
+        ['z', 'y'],
+        ['z', 'v'],
+        ['w', 'v']
+      ]
+      expect(shortest_path(edges, 'w', 'z')).to eq(2)
+    end
+
+    it "test case 2" do
+      edges = [
+        ['w', 'x'],
+        ['x', 'y'],
+        ['z', 'y'],
+        ['z', 'v'],
+        ['w', 'v']
+      ]
+
+      expect(shortest_path(edges, 'y', 'x')).to eq(1)
+    end
+    
+    it "test case 3" do
+      edges = [
+        ['m', 'n'],
+        ['n', 'o'],
+        ['o', 'p'],
+        ['p', 'q'],
+        ['t', 'o'],
+        ['r', 'q'],
+        ['r', 's']
+      ]
+      
+      expect(shortest_path(edges, 'm', 's')).to eq(6)
+    end
+  end
 end

@@ -102,3 +102,57 @@ def undirected_path(edges, node_A, node_B)
 end
 
 #_______________________________________________________________________________
+#Helper method
+def explore(graph, current, visited)
+  return false if visited.include?(current)
+
+  visited.add(current)
+  graph[current].each do |neighbor|
+    explore(graph, neighbor, visited)
+  end
+
+  return true
+end
+#Depth first recursive
+#n = number of nodes, e = number edges, Time: O(e), Space: O(n)
+def connected_components_count(graph)
+  visited = Set.new
+  count = 0
+
+  graph.each do |node, _|
+    if explore(graph, node, visited) == true
+      count += 1
+    end
+  end
+
+  return count
+end
+#_______________________________________________________________________________
+def explore_size(graph, node, visited)
+
+  return 0 if visited.include?(node)
+  visited.add(node)
+
+  size = 1
+  graph[node].each do |neighbor|
+    size += explore_size(graph, neighbor, visited)
+  end
+
+  return size
+end
+#Depth first recursive
+#n = number of nodes, e = number edges, Time: O(e), Space: O(n)
+def largest_component(graph)
+  visited = Set.new
+  largest = 0
+  graph.each do |node, _|
+    size = explore_size(graph, node, visited)
+    largest = size if size > largest
+  end
+  return largest
+end
+#_______________________________________________________________________________
+
+def shortest_path
+  
+end
