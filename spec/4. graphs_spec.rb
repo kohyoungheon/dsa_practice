@@ -230,4 +230,99 @@ describe "graphs" do
       expect(shortest_path(edges, 'm', 's')).to eq(6)
     end
   end
+
+  describe "island count" do
+    it "test case 1" do
+      grid = [
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'W', 'W', 'L', 'W'],
+        ['W', 'W', 'L', 'L', 'W'],
+        ['L', 'W', 'W', 'L', 'L'],
+        ['L', 'L', 'W', 'W', 'W'],
+      ]
+      
+      expect(island_count(grid)).to eq(3)
+    end
+
+    it "test case 2" do 
+      grid = [
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'W', 'W', 'L', 'W'],
+        ['W', 'W', 'L', 'L', 'W'],
+        ['L', 'W', 'W', 'L', 'L'],
+        ['L', 'L', 'W', 'W', 'W'],
+      ]
+      
+      expect(island_count(grid)).to eq(3)
+    end
+  end
+
+  describe "minimum_island" do
+    it "test case 1" do
+      grid = [
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'L', 'W', 'W', 'W'],
+        ['W', 'W', 'W', 'L', 'W'],
+        ['W', 'W', 'L', 'L', 'W'],
+        ['L', 'W', 'W', 'L', 'L'],
+        ['L', 'L', 'W', 'W', 'W'],
+      ]
+      
+      # minimum_island(grid) # -> 2
+      expect(minimum_island(grid)).to eq(2)
+    end
+
+    it "test case 2" do
+      grid = [
+        ['L', 'L', 'L'],
+        ['L', 'L', 'L'],
+        ['L', 'L', 'L'],
+      ]
+      
+      # minimum_island(grid) # -> 9
+      expect(minimum_island(grid)).to eq(9)
+    end
+  end
+
+  describe "closest_carrot" do
+    it "test case 1" do
+      grid = [
+        ['O', 'O', 'X', 'X', 'X'],
+        ['O', 'X', 'X', 'X', 'C'],
+        ['O', 'X', 'O', 'X', 'X'],
+        ['O', 'O', 'O', 'O', 'O'],
+        ['O', 'X', 'X', 'X', 'X'],
+        ['O', 'O', 'O', 'O', 'O'],
+        ['O', 'O', 'C', 'O', 'O'],
+        ['O', 'O', 'O', 'O', 'O'],
+      ]
+      
+      # closest_carrot(grid, 3, 4) # -> 9
+      expect(closest_carrot(grid, 3, 4)).to eq(9)
+    end
+
+    it "test case 2" do
+      grid = [
+        ['O', 'O', 'X', 'O', 'O'],
+        ['O', 'X', 'X', 'X', 'O'],
+        ['O', 'X', 'C', 'C', 'O'],
+      ]
+      
+      # closest_carrot(grid, 2, 0) # -> -1
+      expect(closest_carrot(grid, 2, 0)).to eq(-1)
+    end
+
+    it  "test case 3" do
+      grid = [
+        ['O', 'O', 'X', 'C', 'O'],
+        ['O', 'X', 'X', 'X', 'O'],
+        ['C', 'X', 'O', 'O', 'O'],
+      ]
+      
+      # closest_carrot(grid, 2, 2) # -> 5
+      expect(closest_carrot(grid, 2, 2)).to eq(5)
+    end
+  end
 end
