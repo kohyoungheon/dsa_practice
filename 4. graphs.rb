@@ -278,3 +278,134 @@ def closest_carrot(grid, starting_row, starting_col)
 end
 
 #_______________________________________________________________________________
+def longest_path(graph)
+  distance = {}
+  graph.keys.each do |node|
+    traverse_distance(graph, node, distance)
+  end
+  distance.values.max
+end
+
+def traverse_distance(graph, node, distance)
+  return distance[node] if distance.include?(node)
+
+  return 0 if graph[node].nil? || graph[node].empty?
+
+  max_length = 0
+  graph[node].each do |neighbor|
+    max_length = [max_length, traverse_distance(graph, neighbor, distance)].max
+  end
+
+  distance[node] = 1 + max_length
+  distance[node]
+end
+#_______________________________________________________________________________
+
+def semesters_required(num_courses, prereqs)
+  graph = build_directed_graph(num_courses, prereqs)
+  distance = {}
+
+  graph.keys.each do |course|
+    if graph[course].empty?
+      distance[course] = 1   #1 here because it takes 1 semester do complete atleast 1 course.
+    end
+  end
+
+  graph.keys.each do |course|
+    traverse_distance_2(graph, course, distance)
+  end
+
+  distance.values.max
+end
+
+def traverse_distance_2(graph, node, distance)
+  return distance[node] if distance.include?(node)
+
+  max_distance = 0
+  graph[node].each do |neighbor|
+    neighbor_distance = traverse_distance_2(graph, neighbor, distance)
+    max_distance = neighbor_distance if neighbor_distance > max_distance
+  end
+
+  distance[node] = 1 + max_distance
+  return distance[node]
+end
+
+def build_directed_graph(num_courses, prereqs)
+  graph = {}
+  
+  (0...num_courses).each do |course|
+    graph[course] = []
+  end
+
+  for prereq in prereqs
+    a, b = prereq
+    graph[a].push(b)
+  end 
+  
+  graph
+end
+#_______________________________________________________________________________
+#r = number of rows, c = number of columns, Time: O(rc), Space: O(rc)
+def best_bridge(grid)
+  main_island = nil
+  grid.length.times do |r|
+    grid[0].length.times do |c|
+      potential_island = traverse_island(grid, r, c, Set.new)
+      if potential_island.length > 0
+        main_island = potential_island
+      end
+    end
+  end
+
+  visited = Set.new(main_island) #makes a copy of first island found.
+  queue = []
+  main_island.each do |pos|
+    r, c = pos
+    queue.push([r, c, 0])
+  end
+
+  while queue
+    r, c, distance = queue.shift
+
+    return distance - 1 if grid[r][c] == "L" && !main_island.include?([r, c])
+
+    deltas = [[1,0],[-1,0],[0,1],[0,-1]]
+    deltas.each do |delta|
+      delta_row, delta_col = delta
+
+      neighbor_row = r + delta_row
+      neighbor_col = c + delta_col
+      neighbor_pos = [neighbor_row, neighbor_col]
+
+      if is_inbounds(grid, neighbor_row, neighbor_col) && !visited.include?(neighbor_pos)
+        visited.add(neighbor_pos)
+        queue.push([neighbor_row, neighbor_col, distance + 1])
+      end
+    end
+  end
+end
+
+def traverse_island(grid, row, col, visited)
+  return visited if is_inbounds(grid, row, col) == false #base case
+  return visited if grid[row][col] == "W" #base case
+
+  pos = [row, col]
+  return visited if visited.include?(pos)
+  visited.add(pos)
+
+
+  traverse_island(grid, row - 1, col, visited)
+  traverse_island(grid, row + 1, col, visited)
+  traverse_island(grid, row, col - 1, visited)
+  traverse_island(grid, row, col + 1, visited)
+
+  return visited
+end
+
+def is_inbounds(grid, r, c)
+  row_inbounds = (0 <= r && r < grid.length)
+  col_inbounds = (0 <= c && c < grid[0].length)
+  return row_inbounds && col_inbounds
+end
+#_______________________________________________________________________________
