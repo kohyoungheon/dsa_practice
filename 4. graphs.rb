@@ -409,3 +409,56 @@ def is_inbounds(grid, r, c)
   return row_inbounds && col_inbounds
 end
 #_______________________________________________________________________________
+def has_cycle?(graph)
+  visiting = Set.new
+  visited = Set.new
+
+  graph.keys.each do |node|
+    return true if cycle_detect(graph, node, visiting, visited)
+  end
+
+  return false
+end
+
+def cycle_detect(graph, node, visiting, visited)
+  return true if visiting.include?(node)
+  return false if visited.include?(node)
+
+  visiting.add(node)
+
+  graph[node].each do |neighbor|
+    return true if cycle_detect(graph, neighbor, visiting, visited)
+  end
+
+  visiting.delete(node)
+  visited.add(node)
+  return false
+end
+#_______________________________________________________________________________
+
+def prereqs_possible(num_courses, prereqs)
+  graph = build_directed_graph(num_courses, prereqs)
+
+  visiting = Set.new #grey nodes
+  visited = Set.new #black nodes
+
+  graph.keys.each do |node|
+    return false if has_cycle2?(graph, node, visiting, visited)
+  end
+  
+  return true
+end
+
+def has_cycle2?(graph, node, visiting, visited)
+  return false if visited.include?(node)
+  return true if visiting.include?(node)
+
+  visiting.add(node)
+  graph[node].each do |neighbor|
+    return true if has_cycle2?(graph, neighbor, visiting, visited)
+  end
+
+   visiting.delete(node)
+  visited.add(node)
+  return false
+end

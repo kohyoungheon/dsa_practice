@@ -453,4 +453,85 @@ describe "graphs" do
       expect(best_bridge(grid)).to eq(8)
     end
   end
+
+  describe "has_cycle" do
+    it "test case 1" do
+      expect(has_cycle?({
+        "a" => ["b"],
+        "b" => ["c"],
+        "c" => ["a"],
+      })).to eq(true)
+    end
+
+    it "test case 2" do
+      expect(has_cycle?({
+        "a"=> ["b", "c"],
+        "b"=> ["c"],
+        "c"=> ["d"],
+        "d"=> [],
+      })).to eq(false)
+    end
+
+    it "test case 3" do
+      expect(has_cycle?({
+        "a"=> ["b"],
+        "b"=> ["c"],
+        "c"=> ["d"],
+        "d"=> ["b"],
+      })).to eq(true)
+    end
+
+    it "test case 4" do
+      expect(has_cycle?({
+        "a"=> ["b"],
+        "b"=> ["c"],
+        "c"=> ["a"],
+        "g"=> [],
+      })).to eq(true)
+    end
+  end
+
+  describe "prereqs_possible" do
+    it "test case 1" do
+      numCourses = 6
+      prereqs = [
+        [0, 1],
+        [2, 3],
+        [0, 2],
+        [1, 3],
+        [4, 5],
+      ]
+      # prereqs_possible(numCourses, prereqs) # -> True
+      expect(prereqs_possible(numCourses, prereqs)).to eq(true)
+    end
+
+    it "test case 2" do
+      numCourses = 8
+      prereqs = [
+        [1, 0],
+        [0, 6],
+        [2, 0],
+        [0, 5],
+        [3, 7],
+        [7, 4],
+        [4, 3],
+      ]
+      # prereqs_possible(numCourses, prereqs) # -> False
+      expect(prereqs_possible(numCourses, prereqs)).to eq(false)
+    end
+
+    it "test case 3" do
+      numCourses = 8
+      prereqs = [
+        [1, 0],
+        [0, 6],
+        [2, 0],
+        [0, 5],
+        [3, 7],
+        [4, 3],
+      ]
+      # prereqs_possible(numCourses, prereqs) # -> True
+      expect(prereqs_possible(numCourses, prereqs)).to eq(true)
+    end
+  end
 end
