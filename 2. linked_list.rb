@@ -8,13 +8,13 @@ end
 #_______________________________________________________________________
 # A -> B -> C -> D
 
-# def linked_list_values(head)
-#   current = head
-#   while current != nil
-#     puts current.data
-#     current = current.next
-#   end
-# end
+def linked_list_values(head)
+  current = head
+  while current != nil
+    puts current.data
+    current = current.next
+  end
+end
 
 #Recursive
 def linked_list_values(head)
