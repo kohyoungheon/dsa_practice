@@ -141,6 +141,7 @@ def intersection(array_1, array_2)
   result
 end
 #_____________________________________________________
+# n = array size, Time: O(n), Space: O(1)
 def five_sort(nums)
   i = 0
   j = nums.length - 1

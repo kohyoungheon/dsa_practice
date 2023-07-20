@@ -133,7 +133,7 @@ def tree_min_value_rec(root)
   min_left = tree_min_value_rec(root.left)
   min_right = tree_min_value_rec(root.right)
 
-  return [left, right, root.val].min
+  return [min_left, min_right, root.val].min
 end
 #_______________________________________________________________________________
 
