@@ -11,6 +11,7 @@ describe "array_and_string" do
       a.next = b
       b.next = c
       c.next = d
+      
       expect(linked_list_values(a)).to eq([ 'a', 'b', 'c', 'd' ])
     end
     it "test case 2" do
