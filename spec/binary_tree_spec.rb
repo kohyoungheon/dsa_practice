@@ -647,3 +647,168 @@ describe "all_tree_paths" do
     expect(all_tree_paths(a)).to eq([["a", "b", "d"], ["a", "b", "e", "g"], ["a", "b", "e", "h"], ["a", "c", "f", "i"]])
   end
 end
+
+describe "tree_levels" do
+  it "test case 1" do
+    a = Node.new('a')
+    b = Node.new('b')
+    c = Node.new('c')
+    d = Node.new('d')
+    e = Node.new('e')
+    f = Node.new('f')
+
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.right = f
+
+    #      a
+    #    /   \
+    #   b     c
+    #  / \     \
+    # d   e     f
+    expect(tree_levels(a)).to eq([["a"], ["b", "c"], ["d", "e", "f"]])
+  end
+
+  it "test case 2" do
+    a = Node.new('a')
+    b = Node.new('b')
+    c = Node.new('c')
+    d = Node.new('d')
+    e = Node.new('e')
+    f = Node.new('f')
+    g = Node.new('g')
+    h = Node.new('h')
+    i = Node.new('i')
+
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.right = f
+    e.left = g
+    e.right = h
+    f.left = i
+
+    #         a
+    #      /    \
+    #     b      c
+    #   /  \      \
+    #  d    e      f
+    #      / \    /
+    #     g  h   i
+
+    expect(tree_levels(a)).to eq([["a"], ["b", "c"], ["d", "e", "f"], ["g", "h", "i"]])
+  end
+end
+
+describe "level_averages" do
+  it "test case 1" do
+    a = Node.new(3)
+    b = Node.new(11)
+    c = Node.new(4)
+    d = Node.new(4)
+    e = Node.new(-2)
+    f = Node.new(1)
+
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.right = f
+
+    #       3
+    #    /    \
+    #   11     4
+    #  / \      \
+    # 4   -2     1
+
+    # level_averages(a) # -> [ 3, 7.5, 1 ]
+    expect(level_averages(a)).to eq([3, 7.5, 1])
+  end
+
+  it "test case 2" do
+    q = Node.new(13)
+    r = Node.new(4)
+    s = Node.new(2)
+    t = Node.new(9)
+    u = Node.new(2)
+    v = Node.new(42)
+
+    q.left = r
+    q.right = s
+    r.right = t
+    t.left = u
+    u.right = v
+
+    #        13
+    #      /   \
+    #     4     2
+    #      \
+    #       9
+    #      /
+    #     2
+    #    /
+    #   42
+
+    # level_averages(q) # -> [ 13, 3, 9, 2, 42 ]
+    expect(level_averages(q)).to eq([13, 3, 9, 2, 42])
+  end
+end
+
+describe "leaf_list" do
+  it "test case 1" do
+    a = Node.new("a")
+    b = Node.new("b")
+    c = Node.new("c")
+    d = Node.new("d")
+    e = Node.new("e")
+    f = Node.new("f")
+    
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.right = f
+    
+    #      a
+    #    /   \
+    #   b     c
+    #  / \     \
+    # d   e     f
+    
+    # leaf_list(a) # -> [ 'd', 'e', 'f' ]
+    expect(leaf_list(a)).to eq(['d', 'e', 'f'])
+  end
+
+  it "test case 2" do
+    a = Node.new("a")
+    b = Node.new("b")
+    c = Node.new("c")
+    d = Node.new("d")
+    e = Node.new("e")
+    f = Node.new("f")
+    g = Node.new("g")
+    h = Node.new("h")
+    
+    a.left = b
+    a.right = c
+    b.left = d
+    b.right = e
+    c.right = f
+    e.left = g
+    f.right = h
+    
+    #      a
+    #    /   \
+    #   b     c
+    #  / \     \
+    # d   e     f
+    #    /       \
+    #   g         h
+    
+    # leaf_list(a) # -> [ 'd', 'g', 'h' ]
+    expect(leaf_list_rec(a)).to eq(['d', 'g', 'h'])
+  end
+end

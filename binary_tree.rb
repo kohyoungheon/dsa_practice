@@ -207,3 +207,107 @@ def bottom_right_value(root)
 end
 
 #____________________________________________
+# n = number of nodes, Time: O(n), Space: O(n)
+def all_tree_paths(root)
+  return [] if root.nil?
+
+  return [ [root.val] ] if root.left.nil? && root.right.nil?
+  
+  paths = []
+
+  left_paths = all_tree_paths(root.left)
+  left_paths.each do |path|
+    paths << [root.val] + path
+  end
+
+  right_paths = all_tree_paths(root.right)
+  right_paths.each do |path|
+    paths << [root.val] + path
+  end
+
+  paths
+end
+
+#___________________________________________________
+# n = number of nodes, Time: O(n), Space: O(n)
+def tree_levels(root)
+  return [] if root.nil?
+
+  levels = []
+
+  stack =[ [root, 0] ]
+
+  while stack.length > 0
+    node, level_num = stack.pop
+
+    if levels.length == level_num
+      levels << [node.val]
+    else
+      levels[level_num] << node.val
+    end
+    stack << [node.right, level_num + 1] if node.right
+    stack << [node.left, level_num + 1] if node.left
+  end
+
+  return levels
+end
+
+#________________________________________________-
+def level_averages(root)
+  levels = []
+  fill_level_averages(root, levels, 0)
+  avgs = []
+  levels.each do |level|
+    avgs << level.sum/level.length.to_f
+  end
+  avgs
+end
+
+def fill_level_averages(root, levels, level_num)
+  return if root.nil?
+
+  if levels.length == level_num
+    levels << [root.val]
+  else
+    levels[level_num] << root.val
+  end
+
+  fill_level_averages(root.left, levels, level_num + 1)
+  fill_level_averages(root.right, levels, level_num + 1)
+
+end
+
+#___________________________________
+
+def leaf_list(root)
+  stack = [root]
+  leaves = []
+
+  while stack.length > 0
+    current = stack.pop
+
+    leaves << current.val if current.right.nil? && current.left.nil?
+
+    stack << current.right if current.right
+    stack << current.left if current.left
+  end
+
+  leaves
+end
+
+def leaf_list_rec(root)
+  leaves = []
+  fill_leaves(root, leaves)
+  leaves
+end
+
+def fill_leaves(root, leaves)
+  return if root.nil?
+
+  leaves << root.val if root.left.nil? && root.right.nil?
+
+  fill_leaves(root.left, leaves)
+  fill_leaves(root.right, leaves)
+end
+
+#_________________________________________________
