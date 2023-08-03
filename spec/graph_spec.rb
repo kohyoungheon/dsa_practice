@@ -88,3 +88,76 @@ describe "has_path" do
     expect(has_path_breadth(graph, 'v', 'w')).to eq(true)
   end
 end
+
+describe "undirected_path" do
+  it "test case 1" do
+    edges = [
+      ['i', 'j'],
+      ['k', 'i'],
+      ['m', 'k'],
+      ['k', 'l'],
+      ['o', 'n']
+    ]
+    
+    # undirected_path(edges, 'j', 'm') # -> True
+    expect(undirected_path(edges, 'j', 'm')).to eq(true)
+  end
+  it "test case 2" do
+    edges = [
+      ['i', 'j'],
+      ['k', 'i'],
+      ['m', 'k'],
+      ['k', 'l'],
+      ['o', 'n']
+    ]
+    
+    # undirected_path(edges, 'k', 'o') # -> False
+    expect(undirected_path(edges, 'k', 'o')).to eq(false)
+  end
+
+  it "test case 3" do
+    edges = [
+      ['b', 'a'],
+      ['c', 'a'],
+      ['b', 'c'],
+      ['q', 'r'],
+      ['q', 's'],
+      ['q', 'u'],
+      ['q', 't']
+    ]
+    
+    
+    undirected_path(edges, 'a', 'b') # -> True
+    expect(undirected_path(edges, 'a', 'b')).to eq(true)
+  end
+end
+
+describe "connected components" do
+  it "test case 1" do
+    hash = {
+      3 => [],
+      4 => [6],
+      6 => [4, 5, 7, 8],
+      8 => [6],
+      7 => [6],
+      5 => [6],
+      1 => [2],
+      2 => [1]
+    }
+    expect(connected_components_count(hash)).to eq(3)
+  end
+
+  it "test case 2" do
+    hash = {
+      0 => [8, 1, 5],
+      1 => [0],
+      5 => [0, 8],
+      8 => [0, 5],
+      2 => [3, 4],
+      3 => [2, 4],
+      4 => [3, 2]
+    }
+
+    expect(connected_components_count(hash)).to eq(2)
+  end
+end
