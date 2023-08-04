@@ -61,9 +61,9 @@ end
 #_________________________________
 #Undirected graph
 #Turn edge list into a graph
-n = number of nodes
-e = number edges
-Time: O(e), Space: O(e)
+#Depth first recursive
+# n = number of nodes,e = number edges, Time: O(e), Space: O(e)
+
 def undirected_path(edges, node_A, node_B)
   graph = build_graph(edges)
   return has_path_undirected_graph(graph, node_A, node_B, Set.new)
@@ -101,7 +101,73 @@ def build_graph(edges)
 end
 
 #______________________________________
-
+#Depth first recursive
+#n = number of nodes, e = number edges, Time: O(e), Space: O(n)
 def connected_components_count(graph)
+  visited = Set.new
+  count = 0
 
+  graph.each do |node, _|
+    count += 1 if explore_graph(graph, node, visited) == true
+  end
+
+  return count
 end
+
+def explore_graph(graph, current , visited)
+  return false if visited.include?(current)
+  visited << current
+
+  graph[current].each do |neighbor|
+    explore_graph(graph, neighbor, visited )
+  end
+
+  return true
+end
+#________________________________________
+#Depth first recursive
+#n = number of nodes, e = number edges, Time: O(e), Space: O(n)
+def largest_component(graph)
+  visited = Set.new()
+  largest = 0
+
+  graph.each do |node, _|
+    size = explore_size(graph, node, visited)
+    largest = size if size > largest
+  end
+  return largest
+end
+
+def explore_size(graph, node, visited)
+  return 0 if visited.include?(node)
+  visited << node
+  size = 1
+  graph[node].each do |neighbor|
+    size += explore_size(graph, neighbor, visited)
+  end
+  return size
+end
+#_______________________________________________
+#Breadth first
+#e = number edges, Time: O(e), Space: O(e)
+def shortest_path(edges, node_A, node_B)
+  graph = build_graph(edges)
+  visited = Set.new([node_A])
+  queue = [ [node_A, 0] ]
+
+  while queue.length > 0
+    node, distance = queue.shift
+
+    return distance if node == node_B
+
+    graph[node].each do |neighbor|
+      if !visited.include?(neighbor)
+        visited.add(neighbor)
+        queue << [neighbor, distance + 1]
+      end
+    end
+  end
+
+  return -1
+end
+#__________________________________________
