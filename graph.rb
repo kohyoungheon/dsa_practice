@@ -1,3 +1,4 @@
+#STACK = DEPTH (RECURSIVE POSSIBLE)/ QUEUE = BREADTH
 #n = number of nodes, O(n) time, O(n) space
 def depth_first_print(graph, start)
   stack = [start]
@@ -297,3 +298,41 @@ def traverse_longest(graph, node, distance)
   return distance[node]
 end
 #________________________________________
+def semesters_required(num_courses, prereqs)
+  graph = build_directed_graph(num_courses, prereqs)
+  distance = {}
+  graph.keys.each do |course|
+    distance[course] = 1 if graph[course].length == 0 #first find terminal nodes
+  end
+
+  graph.keys.each do |course|
+    traverse_semesters(graph, course, distance)
+  end
+  distance.values.max
+end
+
+def traverse_semesters(graph,node,distance)
+  return distance[node] if distance.include?(node)
+
+  max_distance = 0
+  graph[node].each do |neighbor|
+    neighbor_distance = traverse_semesters(graph, neighbor, distance)
+    max_distance = neighbor_distance if neighbor_distance > max_distance
+  end
+  distance[node] = max_distance + 1
+  return distance[node]
+end
+
+def build_directed_graph(num_courses, prereqs)
+  graph = {}
+
+  (0...num_courses).each do |course|
+    graph[course] = []
+  end
+
+  prereqs.each do |prereq|
+    a , b = prereq
+    graph[a] << b
+  end
+  graph
+end
