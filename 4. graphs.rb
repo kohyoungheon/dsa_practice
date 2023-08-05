@@ -349,6 +349,7 @@ def build_directed_graph(num_courses, prereqs)
   graph
 end
 #_______________________________________________________________________________
+#Depth first recursive
 #r = number of rows, c = number of columns, Time: O(rc), Space: O(rc)
 def best_bridge(grid)
   main_island = nil

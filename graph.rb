@@ -298,6 +298,7 @@ def traverse_longest(graph, node, distance)
   return distance[node]
 end
 #________________________________________
+# depth first recurseive p = # prereqs c = # courses Time: O(p),Space: O(c)
 def semesters_required(num_courses, prereqs)
   graph = build_directed_graph(num_courses, prereqs)
   distance = {}
@@ -335,4 +336,67 @@ def build_directed_graph(num_courses, prereqs)
     graph[a] << b
   end
   graph
+end
+#__________________________________
+#Iterate through island and call traverse_island recursive function on (grid, r, c, visited)
+def best_bridge(grid)
+  main_island = nil
+  grid.length.times do |r|
+    grid[0].length.times do |c|
+      potential_island = traverse_island(grid, r, c, Set.new)
+      
+      if potential_island.length > 0
+        main_island = potential_island
+      end
+    end
+  end
+
+  visited = Set.new(main_island)
+  queue = [ ]
+  main_island.each do |pos|
+    r , c = pos
+    queue << [r, c, 0] #0 to keep track of distance
+  end
+
+  while queue.length > 0
+    r, c, distance = queue.shift
+
+    return distance - 1 if grid[r][c] == 'L' && !main_island.include?([r,c])
+
+    deltas = [[1,0],[-1,0],[0,1],[0,-1]]
+    deltas.each do |delta|
+    delta_row, delta_col = delta
+    neighbor_row = r + delta_row
+    neighbor_col = c + delta_col
+    neighbor_pos = [neighbor_row, neighbor_col]
+
+      if is_inbounds(grid, neighbor_row, neighbor_col) && !visited.include?(neighbor_pos)
+        visited.add(neighbor_pos)
+        queue << [neighbor_row, neighbor_col, distance + 1]
+      end
+    end
+  end
+end
+
+#returns a visited set of coords [(0,0) (1,0)] etcc for main island
+def traverse_island(grid, r, c, visited)
+  return visited if is_inbounds(grid, r, c) == false #base case
+  return visited if grid[r][c] == "W" #base case
+
+  pos = [r, c]
+  return visited if visited.include?(pos) #base case
+  visited.add(pos)
+  
+  traverse_island(grid, r - 1, c, visited)
+  traverse_island(grid, r + 1, c, visited)
+  traverse_island(grid, r, c - 1, visited)
+  traverse_island(grid, r, c + 1, visited)
+
+  return visited
+end
+
+def is_inbounds(grid, r, c)
+  row_inbounds = (0 <= r && r < grid.length)
+  col_inbounds = (0 <= c && c < grid[0].length)
+  return row_inbounds && col_inbounds
 end

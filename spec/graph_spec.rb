@@ -383,3 +383,44 @@ describe "semesters_required" do
     expect(semesters_required(num_courses, prereqs)).to eq(5)
   end
 end
+
+describe "best_bridge" do
+  it "test case 1" do
+    grid = [
+      ["W", "W", "W", "L", "L"],
+      ["L", "L", "W", "W", "L"],
+      ["L", "L", "L", "W", "L"],
+      ["W", "L", "W", "W", "W"],
+      ["W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W"],
+    ]
+    expect(best_bridge(grid)).to eq(1)
+  end
+
+  it "test case 2" do
+    grid = [
+      ["W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W"],
+      ["L", "L", "W", "W", "L"],
+      ["W", "L", "W", "W", "L"],
+      ["W", "W", "W", "L", "L"],
+      ["W", "W", "W", "W", "W"],
+    ]
+    expect(best_bridge(grid)).to eq(2)
+  end
+
+  it "test case 3" do
+    grid = [
+      ["W", "L", "W", "W", "W", "W", "W", "W"],
+      ["W", "L", "W", "W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W", "W", "W", "W"],
+      ["W", "W", "W", "W", "W", "W", "L", "W"],
+      ["W", "W", "W", "W", "W", "W", "L", "L"],
+      ["W", "W", "W", "W", "W", "W", "W", "L"],
+    ]
+    # best_bridge(grid) # -> 8
+    expect(best_bridge(grid)).to eq(8)
+  end
+end
