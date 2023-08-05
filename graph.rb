@@ -131,7 +131,7 @@ def largest_component(graph)
   visited = Set.new()
   largest = 0
 
-  graph.each do |node, _|
+  graph.keys.each do |node|
     size = explore_size(graph, node, visited)
     largest = size if size > largest
   end
@@ -171,3 +171,129 @@ def shortest_path(edges, node_A, node_B)
   return -1
 end
 #__________________________________________
+#Depth first
+# r = number of row c = number of columns Time: O(rc) Space: O(rc)
+def island_count(grid)
+  visited = Set.new
+  count = 0
+
+  grid.length.times do |r|
+    grid[0].length.times do |c|
+      count += 1 if explore_island(grid, r, c, visited) == true
+    end
+  end
+  return count
+end
+
+def explore_island(grid, r, c, visited)
+  row_inbounds = (0 <= r && r < grid.length)
+  col_inbounds = (0 <= c && c < grid[0].length)
+
+  return false if !row_inbounds || !col_inbounds #check if inbounds
+  return false if grid[r][c] == 'W' #check if water
+  pos = [r, c]
+  return false if visited.include?(pos)#check if visited
+  visited << pos
+
+  explore_island(grid, r - 1, c, visited)
+  explore_island(grid, r + 1, c, visited)
+  explore_island(grid, r , c - 1, visited)
+  explore_island(grid, r , c + 1, visited)
+
+  return true
+end
+
+#_____________________________________________
+#Depth first
+# r = number of row c = number of columns Time: O(rc) Space: O(rc)
+def minimum_island(grid)
+  visited = Set.new
+  min = Float::INFINITY
+  grid.length.times do |r|
+    grid[0].length.times do |c|
+      size = explore_min(grid, r ,c, visited)
+      min = size if size > 0 && min > size
+    end
+  end
+  min
+end
+
+def explore_min(grid, r, c)
+  row_inbounds = (0 <= r && r < grid.length)
+  col_inbounds = (0 <= c && c < grid[0].length)
+
+  return 0 if !row_inbounds || !col_inbounds
+  return 0 if  grid[r][c] == "W"
+  pos = [r, c]
+  return 0 if visited.include?(pos)
+  visited << pos
+
+  size = 1
+  size += explore_min(graph, r - 1, c, visited)
+  size += explore_min(graph, r + 1, c, visited)
+  size += explore_min(graph, r, c - 1, visited)
+  size += explore_min(graph, r, c + 1, visited)
+  size
+end
+#______________________________________________
+# Breadth First, r = number of rows, c = number of columns, Time: O(rc), Space: O(rc)
+def closest_carrot(grid, starting_row, starting_col)
+  visited = Set.new([starting_row, starting_col])
+  queue = [[starting_row, starting_col, 0]]
+
+  while queue.length > 0
+    row, col, distance = queue.shift
+
+    return distance if grid[row][col] == "C"
+
+    deltas = [[1,0],[-1,0],[0,1],[0,-1]]
+
+    deltas.each do |delta|
+      delta_row, delta_col = delta
+      neighbor_row = row + delta_row
+      neighbor_col = col + delta_col
+
+      row_inbounds = (0 <= neighbor_row && neighbor_row < grid.length)
+      col_inbounds = (0 <= neighbor_col && neighbor_col < grid[0].length)
+
+      pos = [neighbor_row, neighbor_col]
+
+      if row_inbounds && col_inbounds && grid[neighbor_row][neighbor_col] != "X" && !visited.include?(pos)
+        queue << [neighbor_row, neighbor_col, distance + 1]
+        visited << pos
+      end
+    end
+  end
+  -1
+end
+#_______________________________________________
+# depth first
+# e = # edges, n = # nodes, Time: O(e), Space: O(n)
+def longest_path(graph)
+  distance = {}
+  
+  graph.keys.each do |node|  #find terminal nodes
+    if graph[node].length == 0
+      distance[node] = 0
+    end
+  end
+
+  graph.keys.each do |node|
+    traverse_longest(graph, node, distance)
+  end
+  distance.values.max
+end
+
+def traverse_longest(graph, node, distance)
+  return distance[node] if distance.include?(node)
+
+  max_length = 0
+  graph[node].each do |neighbor|
+    attempt = traverse_longest(graph, neighbor, distance)
+    max_length = attempt if attempt > max_length
+  end
+
+  distance[node] =  1 + max_length
+  return distance[node]
+end
+#________________________________________

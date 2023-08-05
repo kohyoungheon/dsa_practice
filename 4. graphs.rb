@@ -145,7 +145,7 @@ end
 def largest_component(graph)
   visited = Set.new
   largest = 0
-  graph.each do |node, _|
+  graph.keys.each do |node|
     size = explore_size(graph, node, visited)
     largest = size if size > largest
   end
@@ -246,7 +246,8 @@ def explore_size_2(grid, r, c, visited)
   return size
 end
 #_______________________________________________________________________________
-
+#Breadth first(Iterative)
+# r = number of rows, c = number of columns,Time: O(rc), Space: O(rc)
 def closest_carrot(grid, starting_row, starting_col)
   visited = Set.new([[starting_row, starting_col]])
   queue = [[starting_row, starting_col, 0]]
@@ -278,6 +279,8 @@ def closest_carrot(grid, starting_row, starting_col)
 end
 
 #_______________________________________________________________________________
+# depth first
+# e = # edges, n = # nodes, Time: O(e), Space: O(n)
 def longest_path(graph)
   distance = {}
   graph.keys.each do |node|

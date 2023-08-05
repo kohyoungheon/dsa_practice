@@ -228,3 +228,158 @@ describe "shortest_path" do
     expect(shortest_path(edges, 'm', 's')).to eq(6)
   end
 end
+
+describe "island count" do
+  it "test case 1" do
+    grid = [
+      ['W', 'L', 'W', 'W', 'W'],
+      ['W', 'L', 'W', 'W', 'W'],
+      ['W', 'W', 'W', 'L', 'W'],
+      ['W', 'W', 'L', 'L', 'W'],
+      ['L', 'W', 'W', 'L', 'L'],
+      ['L', 'L', 'W', 'W', 'W'],
+    ]
+    
+    expect(island_count(grid)).to eq(3)
+  end
+
+  it "test case 2" do 
+    grid = [
+      ['W', 'L', 'W', 'W', 'W'],
+      ['W', 'L', 'W', 'W', 'W'],
+      ['W', 'W', 'W', 'L', 'W'],
+      ['W', 'W', 'L', 'L', 'W'],
+      ['L', 'W', 'W', 'L', 'L'],
+      ['L', 'L', 'W', 'W', 'W'],
+    ]
+    
+    expect(island_count(grid)).to eq(3)
+  end
+end
+
+describe "closest_carrot" do
+  it "test case 1" do
+    grid = [
+      ['O', 'O', 'X', 'X', 'X'],
+      ['O', 'X', 'X', 'X', 'C'],
+      ['O', 'X', 'O', 'X', 'X'],
+      ['O', 'O', 'O', 'O', 'O'],
+      ['O', 'X', 'X', 'X', 'X'],
+      ['O', 'O', 'O', 'O', 'O'],
+      ['O', 'O', 'C', 'O', 'O'],
+      ['O', 'O', 'O', 'O', 'O'],
+    ]
+    
+    # closest_carrot(grid, 3, 4) # -> 9
+    expect(closest_carrot(grid, 3, 4)).to eq(9)
+  end
+
+  it "test case 2" do
+    grid = [
+      ['O', 'O', 'X', 'O', 'O'],
+      ['O', 'X', 'X', 'X', 'O'],
+      ['O', 'X', 'C', 'C', 'O'],
+    ]
+    
+    # closest_carrot(grid, 2, 0) # -> -1
+    expect(closest_carrot(grid, 2, 0)).to eq(-1)
+  end
+
+  it  "test case 3" do
+    grid = [
+      ['O', 'O', 'X', 'C', 'O'],
+      ['O', 'X', 'X', 'X', 'O'],
+      ['C', 'X', 'O', 'O', 'O'],
+    ]
+    
+    # closest_carrot(grid, 2, 2) # -> 5
+    expect(closest_carrot(grid, 2, 2)).to eq(5)
+  end
+end
+
+describe "longest_path" do
+  it "test case 1" do
+    graph = {
+      'a'=> ['c', 'b'],
+      'b'=> ['c'],
+      'c'=> []
+    }
+    
+    # longest_path(graph) # -> 2
+    expect(longest_path(graph)).to eq(2)
+  end
+
+  it "test case 2" do
+    graph = {
+      'a'=> ['c', 'b'],
+      'b'=> ['c'],
+      'c'=> [],
+      'q'=> ['r'],
+      'r'=> ['s', 'u', 't'],
+      's'=> ['t'],
+      't'=> ['u'],
+      'u'=> []
+    }
+    
+    # longest_path(graph) # -> 4
+    expect(longest_path(graph)).to eq(4)
+  end
+
+  it "test case 3" do 
+    graph = {
+      'a'=> ['b'],
+      'b'=> ['c'],
+      'c'=> [],
+      'e'=> ['f'],
+      'f'=> ['g'],
+      'g'=> ['h'],
+      'h'=> []
+    }
+    
+    # longest_path(graph) # -> 3
+    expect(longest_path(graph)).to eq(3)
+  end
+
+  it "test case 4" do 
+    graph = {
+      'h'=> ['i', 'j', 'k'],
+      'g'=> ['h'],
+      'i'=> [],
+      'j'=> [],
+      'k'=> [],
+      'x'=> ['y'],
+      'y'=> []
+    }
+    
+    # longest_path(graph) # -> 2
+    expect(longest_path(graph)).to eq(2)
+  end
+end
+
+describe "semesters_required" do
+  it "test case 1" do
+    num_courses = 6
+    prereqs = [
+      [1, 2],
+      [2, 4],
+      [3, 5],
+      [0, 5],
+    ]
+    # semesters_required(num_courses, prereqs) # -> 3
+    expect(semesters_required(num_courses, prereqs)).to eq(3)
+  end
+
+  it "test case 2" do
+    num_courses = 7
+    prereqs = [
+      [4, 3],
+      [3, 2],
+      [2, 1],
+      [1, 0],
+      [5, 2],
+      [5, 6],
+    ]
+    # semesters_required(num_courses, prereqs) # -> 5
+    expect(semesters_required(num_courses, prereqs)).to eq(5)
+  end
+end
