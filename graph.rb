@@ -400,3 +400,10 @@ def is_inbounds(grid, r, c)
   col_inbounds = (0 <= c && c < grid[0].length)
   return row_inbounds && col_inbounds
 end
+
+#____________________________________________
+#White Grey Black algorithm
+
+def has_cycle(graph)
+
+end

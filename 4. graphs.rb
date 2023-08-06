@@ -462,7 +462,7 @@ def has_cycle2?(graph, node, visiting, visited)
     return true if has_cycle2?(graph, neighbor, visiting, visited)
   end
 
-   visiting.delete(node)
+  visiting.delete(node)
   visited.add(node)
   return false
 end
