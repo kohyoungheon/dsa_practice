@@ -77,7 +77,7 @@ def pair_sum(numbers,target_sum)
     complement = target_sum - number
 
     if previous_nums.include?(complement)
-      return ([previous_nums[complement],index])
+      return [previous_nums[complement],index]
     end
 
     previous_nums[number] = index
