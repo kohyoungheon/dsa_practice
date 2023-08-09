@@ -45,6 +45,7 @@ end
 
 #_______________________________
 # Time = O(NM), Space = O(NM)
+# expect(group_anagrams(["eat","tea","tan","ate","nat","bat"])).to eq([["eat", "tea", "ate"], ["tan", "nat"], ["bat"]])
 def group_anagrams(strings)
   res = Hash.new { |hash, key| hash[key] = [] }
   
@@ -74,6 +75,9 @@ end
 #Space Complexity: O(n) n is the number of elements in nums
 #Time Complexity: O(n log n)
 # top_k_frequent([1,1,1,2,2,3], 2)).to eq([1,2])
+
+# nums.tally.sort_by { |_, v| -v }.first(k).to_h.keys -> shorthand 1 line
+
 def top_k_frequent(nums, k)
   hash = Hash.new(0)
   nums.each do |num|
@@ -83,6 +87,110 @@ def top_k_frequent(nums, k)
   sorted.map(&:first).take(k) #same as sorted.map{|n| n.first }
 end
 
+#Space Complexity: O(n) n is the number of elements in nums
+#Time Complexity: O(n)
 def _top_k_frequent(nums, k)
+  counts = {}
+  freq = Array.new(nums.length + 1) { [] } # initialize buckets
+
+  # populate counts with frequencies of each number
+  nums.each do |num|
+    counts[num] = 1 + (counts[num] || 0)
+  end
+
+  # place numbers in their respective frequency buckets
+  counts.each do |number, count|
+    freq[count] << number
+  end
   
+  result = []
+  
+  # iterate through the buckets starting from the highest frequency
+  (freq.length - 1).downto(0) do |i|
+    if freq[i].empty? == false
+      # append the numbers in the bucket to the result until we have k elements
+      result.concat(freq[i]) #unpacks inner array but << doesnt
+      return result.take(k) if result.length >= k
+    end
+  end
+  
+  result
 end
+#______________________________________--
+# Time complexity: 0(n), Space complexity: 0(n)
+# expect(product_except_self([1,2,3,4])).to eq([24,12,8,6])
+def product_except_self(nums)
+  suffix = 1
+  prefix = 1
+  product = []
+
+  # [1,1,2,6]
+  # [24,12,4,1]
+  # Calculate product to the right
+  nums.each do |n| #[1,2,3,4]
+    product << prefix
+    prefix *= n
+  end
+
+  # Calculate product to the left
+  (nums.length - 1).downto(0) do |i|
+    product[i] *= suffix
+    suffix *= nums[i]
+  end
+  return product
+end
+
+#___________________________________
+# encode function:
+# Time Complexity: O(n), where n is the total length of all input strings combined.
+# Space Complexity: O(n), due to the result string.
+#   ["Hello", "world"]
+def encode(strings)
+  result = ""
+  strings.each do |string|
+    result += string.length.to_s + "#" + string
+  end
+  return result
+end
+# decode function:
+# Time Complexity: O(m * k), where m is the length of the encoded string and k is the number of substrings.
+# Space Complexity: O(k), due to the result list.
+#   "5#Hello5#world"
+def decode(string)
+  result = []
+  i = 0
+
+  while i < string.length
+    j = i
+
+    while string[j] != "#"
+      j += 1
+    end
+    length = string[i...j].to_i
+
+    result << string[j + 1..j + length]
+
+    i = j + 1 + length
+  end
+  return result
+end
+
+#____________________________________
+# Space/Time = O(n), n = size of input array
+def longest_consecutive(nums)
+  set = Set.new(nums)
+  longest = 0
+
+  nums.each do |num|
+    if !set.include?(num - 1)
+      length = 0
+      while set.include?(num + length)
+        length += 1
+      end
+      longest = [length, longest].max
+    end
+  end
+  return longest
+end
+
+#______________________________

@@ -44,8 +44,39 @@ describe "top k frequent elements" do
   # You may return the answer in any order.
   it "test 1" do
     expect(top_k_frequent([3,3,3,3,3,3,3,2,2,5,5,5,5,5,5,5,5,5,1,1], 2)).to eq([5,3])
-    expect(top_k_frequent([1,1,1,2,2,3], 2)).to eq([1,2])
+    expect(_top_k_frequent([1,1,1,2,2,3], 2)).to eq([1,2])
     expect(top_k_frequent([1], 1)).to eq([1])
     expect(top_k_frequent([1,2], 2)).to eq([1,2])
+  end
+end
+
+describe "product of array except self" do
+  it "test case 1" do
+    expect(product_except_self([1,2,3,4])).to eq([24,12,8,6])
+    expect(product_except_self([-1,1,0,-3,3])).to eq([0,0,9,0,0])
+  end
+end
+
+describe "encode/decode" do
+  it "encodes and decodes strings correctly (test case 1)" do
+    strings = ["Hello", "world"]
+    encoded = encode(strings)
+    decoded = decode(encoded)
+    expect(decoded).to eq(strings)
+  end
+
+  it "encodes and decodes strings correctly (test case 2)" do
+    strings = ["Ruby", "is", "awesome!"]
+    encoded = encode(strings)
+    decoded = decode(encoded)
+    expect(decoded).to eq(strings)
+  end
+end
+
+describe "Longest Consecutive Sequence" do
+  it "test case 1" do
+    expect(longest_consecutive([100,4,200,1,3,2])).to eq(4)
+    expect(longest_consecutive([0,3,7,2,5,8,4,6,0,1])).to eq(9)
+    expect(longest_consecutive([0,0])).to eq(1)
   end
 end

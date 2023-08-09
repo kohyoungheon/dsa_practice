@@ -1,3 +1,59 @@
-def largest_component()
+def contains_duplicate(nums)
+  set = Set.new
+  nums.each do |num|
+    return true if set.include?(num)
+    set << num
+  end
+  return false
+end
+
+# expect(is_anagram("anagram", "nagaram")).to eq(true)
+def is_anagram(string_1, string_2)
+  hash_1 = Hash.new(0)
+  hash_2 = Hash.new(0)
+
+  string_1.each_char do |char|
+    hash_1[char] += 1
+  end
+
+  string_2.each_char do |char|
+    hash_2[char] += 1
+  end
+
+  return hash_1 == hash_2
+end
+
+# expect(two_sum([2,7,11,15], 9)).to eq([0,1])
+def two_sum(numbers, sum)
+  prev_sums = {}
+  numbers.each_with_index do |num, index|
+    complement = sum - num
+    return [prev_sums[complement], index] if prev_sums.include?(complement)
+    prev_sums[num] = index
+  end
+end
+# group_anagrams(["eat","tea","tan","ate","nat","bat"]).to eq [["eat", "tea", "ate"], ["tan", "nat"], ["bat"]]
+def group_anagrams(strings)
+ result = Hash.new{|h,k| h[k] = []}
+
+ strings.each do |string|
+  count = [0]* 26
+
+  string.each_char do |char|
+    count[char.ord - 'a'.ord] += 1
+  end
+
+  result[count] << string
+ end
+ return result.values
+end
+#________________________________________
+# expect(top_k_frequent([3,3,3,3,3,3,3,2,2,5,5,5,5,5,5,5,5,5,1,1], 2)).to eq([5,3])
+def top_k_frequent(nums, k)
+  nums.tally.sort_by{|_, v|-v}.first(k).to_h.keys
+end
+#_______________________________________________
+
+def longest_consecutive(nums)
   
 end
