@@ -56,3 +56,19 @@ describe "product of array except self" do
     expect(product_except_self([-1,1,0,-3,3])).to eq([0,0,9,0,0])
   end
 end
+
+describe "encode/decode" do
+  it "encodes and decodes strings correctly (test case 1)" do
+    strings = ["Hello", "world"]
+    encoded = encode(strings)
+    decoded = decode(encoded)
+    expect(decoded).to eq(strings)
+  end
+
+  it "encodes and decodes strings correctly (test case 2)" do
+    strings = ["Ruby", "is", "awesome!"]
+    encoded = encode(strings)
+    decoded = decode(encoded)
+    expect(decoded).to eq(strings)
+  end
+end

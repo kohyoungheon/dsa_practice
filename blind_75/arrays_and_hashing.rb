@@ -119,13 +119,12 @@ end
 #______________________________________--
 # Time complexity: 0(n), Space complexity: 0(n)
 # expect(product_except_self([1,2,3,4])).to eq([24,12,8,6])
-def product_except_self(nums)
+def product_except_self(nums) #[1,2,3,4]
   suffix = 1
   prefix = 1
   product = []
-
   # [1,1,2,6]
-  # [24,12,4,1]
+
   # Calculate product to the right
   nums.each do |n| #[1,2,3,4]
     product << prefix
@@ -134,6 +133,7 @@ def product_except_self(nums)
 
   # Calculate product to the left
   (nums.length - 1).downto(0) do |i|
+    require 'pry'; binding.pry
     product[i] *= suffix
     suffix *= nums[i]
   end

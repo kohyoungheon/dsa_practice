@@ -54,6 +54,45 @@ def top_k_frequent(nums, k)
 end
 #_______________________________________________
 
-def longest_consecutive(nums)
-  
+def product_except_self(nums)
+  prefix = 1
+  suffix = 1
+  result = []
+
+  nums.each do |num|
+    result << prefix
+    prefix *= num
+  end
+
+  (nums.length-1).downto(0) do |i|
+    result[i] *= suffix
+    suffix *= nums[i]
+  end
+  result
 end
+#_____________________________________________________
+# "5#Hello5#world"
+def encode(strings)
+  result = ""
+  strings.each do |string|
+    result +=  string.length.to_s + "#" + string
+  end
+  result
+end
+
+def decode(string)
+  result = []
+  i = 0
+  while i < string.length
+    j = i
+    while string[j] != "#"
+      j += 1
+    end
+
+    length = string[i...j].to_i
+    result << string[j + 1..j + length]
+    i = j + 1 + length
+  end
+  result
+end
+#__________________________________-
