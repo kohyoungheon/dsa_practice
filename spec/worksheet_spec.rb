@@ -72,3 +72,28 @@ describe "encode/decode" do
     expect(decoded).to eq(strings)
   end
 end
+
+describe "Longest Consecutive Sequence" do
+  it "test case 1" do
+    expect(longest_consecutive([100,4,200,1,3,2])).to eq(4)
+    expect(longest_consecutive([0,3,7,2,5,8,4,6,0,1])).to eq(9)
+    expect(longest_consecutive([0,0])).to eq(1)
+  end
+end
+
+describe "is_palindrome" do
+  it "test case 1" do
+    expect(is_palindrome("A man, a plan, a canal: Panama")).to eq(true)
+    expect(is_palindrome("racecar")).to eq(true)
+    expect(is_palindrome("racecars")).to eq(false)
+    expect(is_palindrome(nil)).to eq(false)
+  end
+end
+
+describe "two_sum_ii" do
+  it "test_case 1" do
+    expect(two_sum_ii([2,7,11,15], 9)).to eq([1,2])
+    expect(two_sum_ii([2,3,4], 6)).to eq([1,3])
+    expect(two_sum_ii([-1,0], -1)).to eq([1,2])
+  end
+end

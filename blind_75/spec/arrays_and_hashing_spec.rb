@@ -80,3 +80,4 @@ describe "Longest Consecutive Sequence" do
     expect(longest_consecutive([0,0])).to eq(1)
   end
 end
+

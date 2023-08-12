@@ -95,4 +95,57 @@ def decode(string)
   end
   result
 end
-#__________________________________-
+#__________________________________
+def longest_consecutive(nums)
+  set = Set.new(nums)
+  longest = 0
+
+  nums.each do |num|
+    if !set.include?(num-1)
+      length = 0
+      while set.include?(num + length)
+        length += 1
+      end
+      longest = [length, longest].max
+    end
+  end
+  longest
+end
+
+#_____________________________________
+
+def is_palindrome(string)
+  return false if string.nil?
+
+  i = 0
+  j = string.length - 1
+
+  while i < j
+    while i < j && is_alphanumeric?(string[i]) == false
+      i += 1
+    end
+
+    while j > i && is_alphanumeric?(string[j]) == false
+      j -= 1
+    end
+
+
+    return false if string[i].downcase != string[j].downcase
+
+    i += 1
+    j -= 1
+  end
+  return true
+end
+
+def is_alphanumeric?(char)
+  ('a'.ord <= char.ord && char.ord <= 'z'.ord) ||
+  ('A'.ord <= char.ord && char.ord <= 'Z'.ord) ||
+  ('0'.ord <= char.ord && char.ord <= '9'.ord) 
+end
+
+#_________________________________________________
+
+def two_sum_ii(numbers, target)
+  
+end
