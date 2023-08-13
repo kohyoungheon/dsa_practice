@@ -18,15 +18,12 @@ end
 def search(nums, target)
   l = 0
   r = nums.length - 1
-
   while l <= r
     mid = (l + r) / 2
     mid = mid.to_i  # Ensure mid is an integer
-
     if target == nums[mid]
       return mid
     end
-
     # Left sorted portion
     if nums[l] <= nums[mid]
       if target > nums[mid] || target < nums[l]
@@ -43,6 +40,5 @@ def search(nums, target)
       end
     end
   end
-
   return -1
 end

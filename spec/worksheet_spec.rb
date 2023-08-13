@@ -138,3 +138,23 @@ describe "longest repeating character replacement" do
     expect(character_replacement("AABABBA", 1)).to eq(4)
   end
 end
+
+describe "valid parantheses" do
+  it "test case 1" do
+    expect(is_valid("()")).to eq(true)
+    expect(is_valid("()[]{}")).to eq(true)
+    expect(is_valid("(]")).to eq(false)
+    expect(is_valid("([)]")).to eq(false)
+    expect(is_valid("{[]}")).to eq(true)
+    expect(is_valid("]")).to eq(false)
+    expect(is_valid("[")).to eq(false)
+  end
+end
+
+describe "Find minimum in Rotated Sorted Array" do
+  it "test case 1" do
+     expect(find_min([3,4,5,1,2])).to eq(1)
+     expect(find_min([5,6,7,8,9,0,1,2,3,4])).to eq(0)
+     expect(find_min([11,13,15,17])).to eq(11)
+  end
+end

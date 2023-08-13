@@ -267,3 +267,40 @@ def character_replacement(string, k)
   end
   result
 end
+#________________________________________
+
+def is_valid(string)
+  stack = []
+  string.each_char do |c|
+    case c
+    when '(', '{', '['
+      stack.push(c)
+    when ')'
+      return false if stack.pop != '('
+    when ']'
+      return false if stack.pop != '['
+    when '}'
+      return false if stack.pop != '{'
+    end
+  end
+  return stack.empty?
+end
+#______________________________________
+
+def find_min(nums)
+  left = 0
+  right = nums.length - 1
+
+  while left < right
+    middle = left + (right-left)/2
+
+    if nums[middle] > nums[right]
+      left = middle + 1
+    else
+      right = middle
+    end
+  end
+  nums[right]
+end
+#______________________________________
+
