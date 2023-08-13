@@ -39,7 +39,6 @@ end
 
 def character_replacement(string, k)
   count = Hash.new(0)
-
   l = 0
   maxf = 0
   result = 0
@@ -47,12 +46,12 @@ def character_replacement(string, k)
     count[string[r]] += 1
     maxf = [maxf, count[string[r]]].max
 
-    if (r - l + 1) - maxf > k
+    if (r - l + 1) - maxf > k #(r-1+1) = window size
       count[string[l]] -= 1
       l += 1
     end
 
-    result = [result, r - l + 1].max
+    result = [result, r - l + 1].max #(r-1+1) = window size
   end
 
   result

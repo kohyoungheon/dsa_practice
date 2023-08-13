@@ -84,15 +84,15 @@ def max_area(height)
   j = height.length - 1
   maxArea = 0
   while i != j
-      distance = ([height[i], height[j]].min * (j - i))
-      if distance > maxArea
-          maxArea = distance
-      end
-      if height[i] > height[j]
-          j -= 1
-      else
-          i += 1
-      end
+    area = ([height[i], height[j]].min * (j - i))
+    if area > maxArea
+        maxArea = area
+    end
+    if height[i] > height[j]
+        j -= 1
+    else
+        i += 1
+    end
   end
   return maxArea
 end

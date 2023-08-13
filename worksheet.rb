@@ -147,5 +147,123 @@ end
 #_________________________________________________
 
 def two_sum_ii(numbers, target)
-  
+  i = 0
+  j = numbers.length - 1
+
+  while i < j
+    current_sum = numbers[i] + numbers[j]
+    if current_sum > target
+      j -= 1
+    elsif current_sum < target
+      i += 1
+    else  
+      return [i + 1, j + 1]
+    end
+  end
+end
+
+#_____________________________________
+def three_sum(nums)
+  result = []
+
+  nums.sort!
+
+  nums.each_with_index do |num, index|
+    next if index > 0 && num == nums[index - 1]
+
+    left = index + 1
+    right = nums.length - 1
+
+    while left < right
+      three_sum = num + nums[left] + nums[right]
+
+      if three_sum > 0
+        right -= 1
+      elsif three_sum < 0
+        left += 1
+      else
+        result <<  [num, nums[left], nums[right]]
+
+        left += 1
+        left += 1 while left < right && nums[left] == nums[left-1]
+      end
+    end
+  end
+  result
+end
+
+#________________________________________________
+
+def max_area(nums)
+  i = 0
+  j = nums.length - 1
+  max_area = 0
+
+  while i != j
+    area = [nums[i], nums[j]].min * (j - i)
+    max_area = area if area > max_area
+
+    if nums[i] > nums[j]
+      j -= 1
+    else
+      i += 1
+    end
+  end
+  max_area
+end
+
+#________________________________________
+
+def max_profit(nums)
+  left = 0
+  right = 1
+  max_profit = 0
+
+  while right < nums.length
+    if nums[left] < nums[right]
+      profit = nums[right] - nums[left]
+      max_profit = profit if profit > max_profit
+    else
+      left =right
+    end
+    right += 1
+  end
+  max_profit
+end
+#_______________________________________-
+def length_of_longest_substring(string)
+  set = Set.new
+  left = 0
+  longest = 0
+
+  string.each_char do |char|
+    while set.include?(char)
+      set.delete(string[left])
+      left += 1
+    end
+    set.add(char)
+    longest = [set.length, longest].max
+  end
+  longest
+end
+#________________________________________
+
+def character_replacement(string, k)
+  hash = Hash.new(0)
+  left = 0
+  result = 0
+  max_f = 0
+
+  (0...string.length).each do |right|
+    hash[string[right]] += 1
+    max_f = [hash[string[right]],max_f].max
+
+    if (right - left + 1) - max_f > k
+      hash[string[left]] -= 1
+      left += 1
+    end
+
+    result = [result, (right-left + 1)].max
+  end
+  result
 end
