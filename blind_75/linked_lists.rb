@@ -30,6 +30,15 @@ def make_list(nodes)
   head
 end
 
+
+# def create_linked_list(nodes, index = 0)
+#   return nil if index >= nodes.length
+
+#   head = Node.new(nodes[index])
+#   head.next = create_linked_list(nodes, index + 1)
+#   head
+# end
+
 #______________________________________________________________________
 # prev->A->B->C->D
 def reverse_list(head)
@@ -67,8 +76,63 @@ def merge_two_lists(list_1, list_2)
 end
 #______________________________________________________________________
 
+def reorder_list(head)
+  return if head.nil? || head.next.nil?
 
+  # Find middle
+  slow = head
+  fast = head.next
+  while fast && fast.next
+    slow = slow.next
+    fast = fast.next.next
+  end
 
+  # Reverse second half
+  second = slow.next
+  slow.next = nil
+  prev = nil
+  while second
+    tmp = second.next
+    second.next = prev
+    prev = second
+    second = tmp
+  end
+
+  # Merge two halves
+  first = head
+  second = prev
+  while second
+    tmp1 = first.next
+    tmp2 = second.next
+    first.next = second
+    second.next = tmp1
+    first = tmp1
+    second = tmp2
+  end
+
+  head
+end
+#___________________________________________________-
+def remove_nth_from_end(head, n)
+  dummy = Node.new(nil)
+  dummy.next = head
+  
+  left = dummy
+  right = head
+
+  n.times do
+    right = right.next
+  end
+
+  while right
+    left = left.next
+    right = right.next
+  end
+
+  # Delete
+  left.next = left.next.next
+  dummy.next
+end
 
 
 
