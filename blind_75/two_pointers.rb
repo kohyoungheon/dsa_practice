@@ -28,7 +28,7 @@ def alphaNumeric?(character)
   ('0'.ord <= character.ord && character.ord <= '9'.ord)
 end
 #_________________________________
-
+# Time Complexity: O(n), Space Complexity: O(1)
 def two_sum_ii(nums, target)
   left = 0
   right = nums.length - 1
@@ -47,6 +47,7 @@ def two_sum_ii(nums, target)
 end
 
 #______________________________________________________
+# Time complexity of the provided code is O(n^2), and the space complexity is O(n).
 #return all the triplets that equal 0
 #[-1, 0, 1, 2, -1, -4].to eq[-1, 0, 1], [-1, -1, 2]
 def three_sum(nums)
@@ -77,6 +78,8 @@ def three_sum(nums)
   result
 end
 #___________________________________________
+# Time complexity of the provided code is O(n), and the space complexity is O(1).
+#n is the length of the input array height.
 #container with most water
 #Brute Force O(n^2)
 def max_area(height)

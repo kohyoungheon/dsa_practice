@@ -36,7 +36,7 @@ def length_of_longest_substring(string)
   result
 end
 #_______________________________________________________________________________
-
+#Time:O(n), and the space complexity is O(1).
 def character_replacement(string, k)
   count = Hash.new(0)
   l = 0

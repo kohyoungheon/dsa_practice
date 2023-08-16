@@ -1,3 +1,4 @@
+# time complexity of the provided code is O(n), and the space complexity is O(n).
 def is_valid(s)
   return true if s.empty?
   

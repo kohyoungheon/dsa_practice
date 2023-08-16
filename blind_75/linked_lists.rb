@@ -6,15 +6,7 @@ class Node
   end
 end
 
-class Node
-  attr_accessor :data, :next
-
-  def initialize(data)
-    @data = data
-    @next = nil
-  end
-end
-
+#Time: O(n), and the space complexity is O(n).
 def make_list(nodes)
   return nil if nodes.empty?
 
@@ -41,6 +33,7 @@ end
 
 #______________________________________________________________________
 # prev->A->B->C->D
+# Time: O(n), and the space complexity is O(1)
 def reverse_list(head)
   current = head
   prev = nil
@@ -54,6 +47,7 @@ def reverse_list(head)
   prev
 end
 #_____________________________________________________________-
+# Time: O(n), and the space complexity is O(1)
 def merge_two_lists(list_1, list_2)
   dummy_head = Node.new(nil)
   current = dummy_head
@@ -75,7 +69,7 @@ def merge_two_lists(list_1, list_2)
   dummy_head.next
 end
 #______________________________________________________________________
-
+# Time: O(n), and the space complexity is O(1).
 def reorder_list(head)
   return if head.nil? || head.next.nil?
 
@@ -112,7 +106,8 @@ def reorder_list(head)
 
   head
 end
-#___________________________________________________-
+#___________________________________________________
+# Time: O(n), and the space complexity is O(1).
 def remove_nth_from_end(head, n)
   dummy = Node.new(nil)
   dummy.next = head
@@ -134,6 +129,7 @@ def remove_nth_from_end(head, n)
   dummy.next
 end
 #____________________________________________________
+# O(n), and the space complexity is O(1)
 def has_cycle(head)
   return false if head.nil?
 
@@ -149,6 +145,8 @@ def has_cycle(head)
   false
 end
 #____________________________________________________
+# Time: O(n * log k), and the space complexity is O(k).
+#n = total number of nodes and k = number of lists
 def merge_k_lists(lists)
   return nil if lists.nil? || lists.empty?
 
