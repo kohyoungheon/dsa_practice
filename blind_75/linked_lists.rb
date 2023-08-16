@@ -133,6 +133,34 @@ def remove_nth_from_end(head, n)
   left.next = left.next.next
   dummy.next
 end
+#____________________________________________________
+def has_cycle(head)
+  return false if head.nil?
 
+  slow = head
+  fast = head
 
+  while fast && fast.next
+    slow = slow.next
+    fast = fast.next.next
+    return true if slow == fast
+  end
+
+  false
+end
+#____________________________________________________
+def merge_k_lists(lists)
+  return nil if lists.nil? || lists.empty?
+
+  while lists.length > 1
+    merged_lists = []
+    (0...lists.length).step(2) do |i|
+      l1 = lists[i]
+      l2 = (i + 1) < lists.length ? lists[i + 1] : nil
+      merged_lists << merge_two_lists(l1, l2)
+    end
+    lists = merged_lists
+  end
+  lists[0]
+  end
 
