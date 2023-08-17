@@ -160,5 +160,26 @@ def merge_k_lists(lists)
     lists = merged_lists
   end
   lists[0]
+end
+#______________________________________________
+def is_subtree(s, t)
+  return true if t.nil?
+  return false if s.nil?
+
+  if same_tree(s, t)
+    return true
   end
 
+  is_subtree(s.left, t) || is_subtree(s.right, t)
+end
+
+def same_tree(s, t)
+  return true if s.nil? && t.nil?
+  return false if s.nil? || t.nil?
+
+  if s.val == t.val
+    same_tree(s.left, t.left) && same_tree(s.right, t.right)
+  else
+    false
+  end
+end
