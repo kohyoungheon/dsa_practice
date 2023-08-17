@@ -279,3 +279,28 @@ describe "construct binary tree from preorder and inorder traversal" do
     expect(is_same_tree(a, tree)).to eq(true)
   end
 end
+
+describe "binary tree maximum path sum" do
+  it "test case 1" do
+    a = Node.new(1)
+    b = Node.new(2)
+    c = Node.new(3)
+
+    a.left = b
+    b.right = c
+
+    d = Node.new(-10)
+    e = Node.new(9)
+    f = Node.new(20)
+    g = Node.new(15)
+    h = Node.new(7)
+
+    d.left = e
+    d.right = f
+    f.left = g
+    f.right = h
+
+    expect(max_path_sum(a)).to eq(6)
+    expect(max_path_sum(d)).to eq(42)
+  end
+end

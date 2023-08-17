@@ -190,3 +190,26 @@ def build_tree(preorder, inorder)
   root.right = build_tree(preorder[mid + 1..-1], inorder[mid + 1..-1])
   root
 end
+
+#___________________________________________________
+
+def max_path_sum(root, res = [root.val])
+  dfs(root, res)
+  res[0]
+end
+
+# Return max path sum without split
+def dfs(root, res)
+  return 0 if root.nil?
+
+  left_max = dfs(root.left, res)
+  right_max = dfs(root.right, res)
+  left_max = [left_max, 0].max
+  right_max = [right_max, 0].max
+
+  # Compute max path sum WITH split
+  res[0] = [res[0], root.val + left_max + right_max].max
+  root.val + [left_max, right_max].max
+end
+#_____________________________________________________
+
