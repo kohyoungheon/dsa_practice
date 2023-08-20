@@ -37,22 +37,25 @@ def length_of_longest_substring(string)
 end
 #_______________________________________________________________________________
 #Time:O(n), and the space complexity is O(1).
-def character_replacement(string, k)
-  count = Hash.new(0)
+def character_replacement(s, k)
   l = 0
-  maxf = 0
-  result = 0
-  (0...string.length).each do |r|
-    count[string[r]] += 1
-    maxf = [maxf, count[string[r]]].max
+  r = 0
+  max = 0
+  hash = Hash.new(0)
 
-    if (r - l + 1) - maxf > k #(r-1+1) = window size
-      count[string[l]] -= 1
+  while r < s.length do 
+    char = s[r]
+    hash[char] += 1
+
+    while (r - l + 1) - hash.values.max > k do 
+      hash[s[l]] -= 1
       l += 1
     end
 
-    result = [result, r - l + 1].max #(r-1+1) = window size
+    max = [max, r - l + 1].max
+
+    r += 1
   end
 
-  result
+  max
 end

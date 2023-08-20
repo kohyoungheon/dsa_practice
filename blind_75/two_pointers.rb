@@ -70,6 +70,7 @@ def three_sum(nums)
       else
         result << [num, nums[left], nums[right]]
         
+        r -= 1
         left += 1
         left += 1 while nums[left] == nums[left - 1] && left < right #skips duplicates and ensure it doesnt pass right pointer.
       end
