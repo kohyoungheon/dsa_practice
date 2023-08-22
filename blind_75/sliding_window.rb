@@ -59,3 +59,50 @@ def character_replacement(s, k)
 
   max
 end
+
+#_______________________________________________
+# Input: s1 = "ab", s2 = "eidbaooo"
+# Output: true
+def check_inclusion(s1, s2)
+  return false if s1.length > s2.length
+
+  hash = Hash.new(0)
+  s1.each_char { |c| hash[c] += 1 }
+
+  s2.each_char.with_index do |c, i|
+    hash[c] -= 1
+
+    #update sliding window because i is greater than s1.length
+    if i >= s1.length
+      hash[s2[i - s1.length]] += 1
+    end
+
+    return true if hash.values.all?(0)
+  end
+  false
+end
+
+#_________________________________-
+# Input: nums = [1,12,-5,-6,50,3], k = 4
+# Output: 12.75000
+# Explanation: Maximum average is (12 - 5 - 6 + 50) / 4 = 51 / 4 = 12.75
+def find_max_average(nums, k)
+  total = 0.0
+  answer = 0.0
+
+  (0..k-1).each do |i|
+    total += nums[i]
+  end
+  answer = total / k
+
+  (k..nums.length - 1 ).each do |i|
+    total -= nums[i - k]
+    total += nums[i]
+    answer = [answer, total / k].max
+  end
+  answer
+end
+#___________________________________________-
+# Input: target = 7, nums = [2,3,1,2,4,3]
+# Output: 2
+# Explanation: The subarray [4,3] has the minimal length under the problem constraint.

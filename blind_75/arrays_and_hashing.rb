@@ -79,42 +79,23 @@ end
 # nums.tally.sort_by { |_, v| -v }.first(k).to_h.keys -> shorthand 1 line
 
 def top_k_frequent(nums, k)
-  hash = Hash.new(0)
+  array = Array.new(nums.length + 1){[]}
+  count = Hash.new(0)
   nums.each do |num|
-    hash[num] += 1
+    count[num] += 1
   end
-  sorted = hash.sort_by { |_, v| -v } #sorting by negative value (-v) to ensure it's in descending order
-  sorted.map(&:first).take(k) #same as sorted.map{|n| n.first }
-end
-
-#Space Complexity: O(n) n is the number of elements in nums
-#Time Complexity: O(n)
-def _top_k_frequent(nums, k)
-  counts = {}
-  freq = Array.new(nums.length + 1) { [] } # initialize buckets
-
-  # populate counts with frequencies of each number
-  nums.each do |num|
-    counts[num] = 1 + (counts[num] || 0)
-  end
-
-  # place numbers in their respective frequency buckets
-  counts.each do |number, count|
-    freq[count] << number
+  
+  
+  count.each do |key, value|
+    array[value] << key
   end
   
   result = []
-  
-  # iterate through the buckets starting from the highest frequency
-  (freq.length - 1).downto(0) do |i|
-    if freq[i].empty? == false
-      # append the numbers in the bucket to the result until we have k elements
-      result.concat(freq[i]) #unpacks inner array but << doesnt
-      return result.take(k) if result.length >= k
-    end
+
+  (array.length - 1).downto(0) do |i|
+    result << array[i] unless array[i].empty?
   end
-  
-  result
+  result.flatten.take(k)
 end
 #______________________________________--
 # Time complexity: 0(n), Space complexity: 0(n)
