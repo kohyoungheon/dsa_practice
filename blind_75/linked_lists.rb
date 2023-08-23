@@ -147,6 +147,8 @@ end
 #____________________________________________________
 # Time: O(n * log k), and the space complexity is O(k).
 #n = total number of nodes and k = number of lists
+# Input: lists = [[1,4,5],[1,3,4],[2,6]]
+# Output: [1,1,2,3,4,4,5,6]
 def merge_k_lists(lists)
   return nil if lists.nil? || lists.empty?
 
