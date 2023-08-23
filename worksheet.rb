@@ -1,0 +1,3 @@
+def hasCycle(head)
+  
+end
