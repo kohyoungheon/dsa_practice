@@ -1,17 +1,42 @@
-def max_depth_bfs(root)
-  return 0 if root.nil?
-  queue = [root]
-  level = 0
-
-  while queue.length > 0
-    queue.length.times do |i|
-      node = queue.shift
-
-      queue << node.left if node.left
-      queue << node.right if node.right
-
-    end
-    level += 1
+class TrieNode
+  attr_accessor :children, :is_end
+  def initialize
+    @children = {}
+    @is_end = false
   end
-  level
+end
+
+class Trie
+  attr_accessor :root
+
+  def initialize
+    @root = TrieNode.new
+  end
+
+  def insert(word)
+    current = @root
+    word.each_char do |char|
+      current.children[char] = TrieNode.new unless current.children[char]
+      current = current.children[char]
+    end
+    current.is_end = true
+  end
+
+  def search(word)
+    current = @root
+    word.each_char do |char|
+      return false unless current.children[char]
+      current = current.children[char]
+    end
+    current.is_end
+  end
+
+  def starts_with(prefix)
+    current = @root
+    prefix.each_char do |char|
+      return false unless current.children[char]
+      current = current.children[char]
+    end
+    return true
+  end
 end

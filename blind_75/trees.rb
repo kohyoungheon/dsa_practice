@@ -204,11 +204,14 @@ def dfs(root, res)
 
   left_max = dfs(root.left, res)
   right_max = dfs(root.right, res)
+
+  #incase of negatives
   left_max = [left_max, 0].max
   right_max = [right_max, 0].max
 
   # Compute max path sum WITH split
   res[0] = [res[0], root.val + left_max + right_max].max
+  
   root.val + [left_max, right_max].max
 end
 #_____________________________________________________
