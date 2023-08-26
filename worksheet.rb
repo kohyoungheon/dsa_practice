@@ -1,38 +1,39 @@
-def exist(board, word)
-  @rows = board.length
-  @cols = board[0].length
-  @path = Set.new()
+def dfs(matrix, i, j, visited)
+  visited[i][j] == true
+  dfs(matrix, i-1, j, visited) if i-1 > 0 && !visited.include?[i-1][j] && matrix[i-1][j] >= matrix[i][j]
+  dfs(matrix, i+1, j, visited) if i+1 <= matrix.length && !visited.include?[i+1][j] && matrix[i+1][j] >= matrix[i][j]
+  dfs(matrix, i, j-1, visited) if j-1 > 0 && !visited.include?[i][j-1] && matrix[i][j-1] >= matrix[i][j]
+  dfs(matrix, i, j+1, visited) if j+1 <= matrix[0].length && !visited.include?[i][j+1] && matrix[i][j+1] >= matrix[i][j]
+end
 
-  @board = @board
-  @word = @word
+def pacific_atlantic(matrix)
+  return [] if matrix.nil?
+  atl = Array.new(matrix.length) { Array.new(matrix[0].length, false) }
+  pac = Array.new(matrix.length) { Array.new(matrix[0].length, false) }
 
-  set1 = @board.flatten.to_set
-  set2 = @word.split('').to_set
-
-  return false if !(set1 >= set2)
-
-  def dfs(r,c,i)
-    return true if i == word.length
-    return false if (r < 0 || c < 0 || r > @rows || c > @cols || @board[r][c] != word[i], @path.include?([r,c]))
-
-    @path << [r,c]
-
-    result == (dfs(r + 1, c, i+1) ||
-              dfs(r - 1, c, i+1)  ||
-              dfs(r, c + 1, i+1)  ||
-              dfs(r, c - 1, i+1))
-
-    @path.delete([r,c])
-    
-    result
+  #left side pacific
+  for i in 0...matrix.length
+    dfs(matrix, i, 0, pac)
+  end
+  #top side pacific
+  for j in 0...matrix[0].length
+    dfs(matrix, 0, j, pac)
+  end
+  #right side atlantic
+  for i in 0...matrix.length
+    dfs(matrix, i, matrix[0].length - 1, atl)
+  end
+  #bottom side atlantic
+  for j in 0...matrix[0].length
+    dfs(matrix, matrix.length-1, j, atl)
   end
 
-
-
-  (0..@rows - 1) do |r|
-    (0..@cols -1) do |c|
-      return true if dfs(r,c,0)
+  res = []
+  matrix.length.times do |r|
+    matrix[0].length.times do |c|
+      res << [r,c] if atl[r][c] && pac[r][c]
     end
   end
-  return false
+
+  res
 end

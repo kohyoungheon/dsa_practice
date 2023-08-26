@@ -7,7 +7,7 @@ class Node
   end
 end
 
-def cloneGraph(node)
+def clone_graph(node)
   dfs(node, {})
 end
 
