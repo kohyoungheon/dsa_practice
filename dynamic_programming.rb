@@ -6,13 +6,11 @@ def fib(n)
   a = 0
   b = 1
 
-  n.times do
+  n.times do |n|
     temp = a
     a = b
-    b = temp + b
+    
   end
-
-  return a
 end
 #Recursive
 def fib_r(n)
