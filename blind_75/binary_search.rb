@@ -44,6 +44,8 @@ def search(nums, target)
 end
 
 #______________________________________
+# Input: nums = [-1,0,3,5,9,12], target = 9
+# Output: 4
 def search_unrotated(nums, target)
   left = 0
   right = nums.length - 1
