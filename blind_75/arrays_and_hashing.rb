@@ -114,7 +114,6 @@ def product_except_self(nums) #[1,2,3,4]
 
   # Calculate product to the left
   (nums.length - 1).downto(0) do |i|
-    require 'pry'; binding.pry
     product[i] *= suffix
     suffix *= nums[i]
   end
@@ -133,10 +132,10 @@ def encode(strings)
   end
   return result
 end
+#   "5#Hello5#world"
 # decode function:
 # Time Complexity: O(m * k), where m is the length of the encoded string and k is the number of substrings.
 # Space Complexity: O(k), due to the result list.
-#   "5#Hello5#world"
 def decode(string)
   result = []
   i = 0
@@ -175,3 +174,25 @@ def longest_consecutive(nums)
 end
 
 #______________________________
+def is_valid_sudoku(board)
+  cols = Hash.new { |h, k| h[k] = Set.new }
+  rows = Hash.new { |h, k| h[k] = Set.new }
+  squares = Hash.new { |h, k| h[k] = Set.new }
+
+  (0..8).each do |r|
+    (0..8).each do |c|
+      cell = board[r][c]
+      next if cell == "."
+
+      if rows[r].include?(cell) || cols[c].include?(cell) || squares[[r / 3, c / 3]].include?(cell)
+        return false
+      end
+
+      cols[c].add(cell)
+      rows[r].add(cell)
+      squares[[r / 3, c / 3]].add(cell)
+    end
+  end
+
+  true
+end

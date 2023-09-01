@@ -1,22 +1,20 @@
 # Space = O(1)
 # Time = O(n)
 def max_profit(prices)
-  left = 0 #buying price
-  right = 1 #selling price
+  i = 0
+  j = 1
   max_profit = 0
 
-  while right < prices.length
-
-    if prices[left] < prices[right]
-      profit = prices[right] - prices[left]
+  while j < prices.length
+    if prices[i] < prices[j]
+      profit = prices[j] - prices[i]
       max_profit = profit if profit > max_profit
     else
-      left = right
+      i = j
     end
-
-    right += 1
+    j+= 1
   end
-  return max_profit
+  max_profit
 end
 #_______________________________________________________________________________
 # Time :O(n) Space: O(min(n, m)) n =string size, m = charset size

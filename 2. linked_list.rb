@@ -414,7 +414,6 @@ def add_lists_rec(head_1,head_2, carry = 0)
  
   sum = val_1 + val_2 + carry
   next_carry = sum > 9 ? 1 : 0
-
   digit = sum % 10
   result = Node.new(digit)
 

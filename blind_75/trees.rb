@@ -212,6 +212,7 @@ def dfs(root, res)
   # Compute max path sum WITH split
   res[0] = [res[0], root.val + left_max + right_max].max
   
+  #without split
   root.val + [left_max, right_max].max
 end
 #_____________________________________________________

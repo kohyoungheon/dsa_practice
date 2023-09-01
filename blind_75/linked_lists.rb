@@ -95,7 +95,7 @@ def reorder_list(head)
   # Merge two halves
   first = head
   second = prev
-  while second
+  while second #only second half can be 1 shorter
     tmp1 = first.next
     tmp2 = second.next
     first.next = second
@@ -164,24 +164,4 @@ def merge_k_lists(lists)
   lists[0]
 end
 #______________________________________________
-def is_subtree(s, t)
-  return true if t.nil?
-  return false if s.nil?
 
-  if same_tree(s, t)
-    return true
-  end
-
-  is_subtree(s.left, t) || is_subtree(s.right, t)
-end
-
-def same_tree(s, t)
-  return true if s.nil? && t.nil?
-  return false if s.nil? || t.nil?
-
-  if s.val == t.val
-    same_tree(s.left, t.left) && same_tree(s.right, t.right)
-  else
-    false
-  end
-end
