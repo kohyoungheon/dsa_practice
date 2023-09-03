@@ -9,7 +9,20 @@ def climb_stairs(n)
   end
   one
 end
-#_________________________________________________--
+#_________________________________________________
+# Input: cost = [10,15,20]
+# Output: 15
+# Explanation: You will start at index 1.
+# - Pay 15 and climb two steps to reach the top.
+# The total cost is 15.
+def min_cost_climbing_stairs(cost)
+  for i in (cost.length - 3).downto(0)
+    cost[i] += [cost[i + 1], cost[i + 2]].min
+  end
+
+  [cost[0], cost[1]].min
+end
+#_________________________________________________
 #nums = [1,2,3,1]
 def house_robber(nums)
   rob1 = 0
@@ -111,3 +124,20 @@ def max_product(nums)
   return res
 end
 #______________________________________________
+# Input: nums = [10,9,2,5,3,7,101,18]
+# Output: 4
+# Explanation: The longest increasing subsequence is [2,3,7,101], therefore the length is 4.
+def length_of_lis(nums)
+  lis = [1] * nums.length
+
+  (nums.length - 1).downto(0) do |i|
+    (i + 1).upto(nums.length - 1) do |j|
+      if nums[i] < nums[j]
+        lis[i] = [lis[i], 1 + lis[j]].max
+      end
+    end
+  end
+
+  lis.max
+end
+

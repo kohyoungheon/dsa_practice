@@ -11,7 +11,8 @@ describe "graphs" do
         "c" => ["e"],
         "d" => ["f"],
         "e" => [],
-        "f" => []
+        "f" => [],
+        "g" => []
       }
 
       expect { depth_first_print(graph, "a") }.to output("a\nc\ne\nb\nd\nf\n").to_stdout

@@ -63,3 +63,41 @@ def search_unrotated(nums, target)
   end
   -1
 end
+
+#_________________________________________
+def search_matrix(matrix, target)
+  rows = matrix.length
+  cols = matrix[0].length
+
+  top = 0
+  bottom = rows - 1
+
+  while top <= bottom
+    row = (top + bottom) / 2
+    if target > matrix[row][-1]
+      top = row + 1
+    elsif target < matrix[row][0]
+      bottom = row - 1
+    else
+      break
+    end
+  end
+
+  return false if !(top <= bot)
+  row = (top + bottom) / 2
+  l = 0
+  r= cols - 1
+
+  while l <= res
+    m = (l+r)/2
+    if target > matrix[row][m]
+      l = m + 1
+    elsif target < matrix[row][m]
+      r = m - 1
+    else
+      return true
+    end
+  end
+
+  false
+end

@@ -94,3 +94,44 @@ def valid_tree(n, edges)
 
   dfs(0, -1) && n == visit.length
 end
+#_______________________________
+def can_finish(num_courses, prereqs)
+  graph = build_graph(num_courses, prereqs)
+
+  visiting = Set.new #grey
+  visited = Set.new #black
+
+  graph.keys.each do |node|
+    return false if has_cycle?(graph, node, visiting, visited)
+  end
+  return true
+end
+
+def has_cycle?(graph, node, visiting, visited)
+  return false if visited.include?(node)
+  return true if visiting.include?(node)
+
+  visiting << node
+  graph[node].each do |neighbor|
+    return true if has_cycle?(graph, neighbor, visiting, visited)
+  end
+
+  visiting.delete(node)
+  visited.add(node)
+  false
+end
+
+def build_graph(num_courses, prereqs)
+  graph = {}
+
+  (0...num_courses).each do |course|
+    graph[course] = []
+  end
+
+  prereqs.each do |prereq|
+    a, b = prereq
+    graph[a] << b
+  end
+
+  graph
+end

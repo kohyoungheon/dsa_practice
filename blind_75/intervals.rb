@@ -1,4 +1,4 @@
-def meeting_rooms()
+def meeting_rooms(intervals)
   intervals.sort_by! { |i| i[0] }
 
   (1...intervals.length).each do |i|
