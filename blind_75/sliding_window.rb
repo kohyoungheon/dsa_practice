@@ -18,6 +18,7 @@ def max_profit(prices)
 end
 #_______________________________________________________________________________
 # Time :O(n) Space: O(min(n, m)) n =string size, m = charset size
+# longest without repeating char
 def length_of_longest_substring(string)
   set = Set.new
   left = 0

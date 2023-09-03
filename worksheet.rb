@@ -1,24 +1,40 @@
-def top_k_frequent(nums, k)
-  array = Array.new(nums.length + 1){[]}
-  count = Hash.new(0)
-  nums.each do |num|
-    count[num] += 1
-  end
-  require 'pry'; binding.pry
-  
-  
-  count.each do |key, value|
-    array[value] << key
+def remove_nth_from_end(head, n)
+  dummy = Node.new(nil)
+  dummy.next = head
+
+  left = dummy
+  right = head
+  n.times do 
+    right = right.next
   end
 
-  require 'pry'; binding.pry
-  
-  result = []
-
-  (array.length - 1).downto(0) do |i|
-    result << array[i] unless array[i].empty?
+  while right
+    right = right.next
+    left = left.next
   end
-  result.flatten.take(k)
+
+  left.next = left.next.next
+  dummy.next
 end
+#____________________________________________________
+# O(n), and the space complexity is O(1)
+def has_cycle(head)
+  slow = head
+  fast = head
 
-top_k_frequent([1,1,1,2,2,3], 2)
+  while fast && fast.next
+    slow = slow.next
+    fast = fast.next.next
+    return true if slow == fast
+  end
+  false
+end
+#____________________________________________________
+# Time: O(n * log k), and the space complexity is O(k).
+#n = total number of nodes and k = number of lists
+# Input: lists = [[1,4,5],[1,3,4],[2,6]]
+# Output: [1,1,2,3,4,4,5,6]
+def merge_k_lists(lists)
+
+end
+#________
