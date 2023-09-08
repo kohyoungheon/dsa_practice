@@ -26,7 +26,7 @@ def max_depth_bfs(root)
   level = 0
   queue = [root]
   while queue.length > 0
-    queue.length.times do |i|
+    queue.length.times do
       current = queue.shift
       queue << current.left if current.left
       queue << current.right if current.right
@@ -37,20 +37,20 @@ def max_depth_bfs(root)
   return level
 end
 
-def max_depth_dfs(root)
+def max_depth(root)
+  return 0 if root.nil?
+  
   stack = [[root, 1]]
-  res = 0
+  max = 0
 
-  until stack.empty?
-    node, depth = stack.pop
+  while !stack.empty?
+    current, depth = stack.pop
+    max = [max, depth].max
 
-    if node
-      res = [res, depth].max
-      stack.push([node.left, depth + 1])
-      stack.push([node.right, depth + 1])
-    end
+    stack << [current.left, depth + 1] if current.left
+    stack << [current.right, depth + 1] if current.right
   end
-  res
+  max
 end
 
 #__________________________________________________
@@ -180,7 +180,12 @@ def kth_smallest(root, k)
   end
 end
 #_________________________________________________-
-
+# [3,9,20,15,7], inorder = [9,3,15,20,7]
+#    3
+#   /\
+#  9  20
+#     /\
+#    15 7
 def build_tree(preorder, inorder)
   return nil if preorder.empty? || inorder.empty?
 

@@ -48,3 +48,7 @@ class MinStack
       @min_stack[-1]
     end
   end
+end
+
+#_________________________________________________
+#evaluate reverse polish notation

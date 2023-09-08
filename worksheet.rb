@@ -1,40 +1,16 @@
-def remove_nth_from_end(head, n)
-  dummy = Node.new(nil)
-  dummy.next = head
+# @param {Character[][]} grid
+# @return {Integer}
+def number_of_islands(grid)
+  count = 0
 
-  left = dummy
-  right = head
-  n.times do 
-    right = right.next
+  grid.length.times do |r|
+    grid[0].length.times do |c|
+      count += 1 if explore_island(r,c,grid,visited) == true
+    end
   end
-
-  while right
-    right = right.next
-    left = left.next
-  end
-
-  left.next = left.next.next
-  dummy.next
+  count
 end
-#____________________________________________________
-# O(n), and the space complexity is O(1)
-def has_cycle(head)
-  slow = head
-  fast = head
 
-  while fast && fast.next
-    slow = slow.next
-    fast = fast.next.next
-    return true if slow == fast
-  end
-  false
+def explore_island(r,c,grid,visited)
+  return false if grid[r][c] == '0'
 end
-#____________________________________________________
-# Time: O(n * log k), and the space complexity is O(k).
-#n = total number of nodes and k = number of lists
-# Input: lists = [[1,4,5],[1,3,4],[2,6]]
-# Output: [1,1,2,3,4,4,5,6]
-def merge_k_lists(lists)
-
-end
-#________
