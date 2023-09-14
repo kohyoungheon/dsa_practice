@@ -1,16 +1,9 @@
-# @param {Character[][]} grid
-# @return {Integer}
-def number_of_islands(grid)
-  count = 0
-
-  grid.length.times do |r|
-    grid[0].length.times do |c|
-      count += 1 if explore_island(r,c,grid,visited) == true
-    end
+def replace_elements(arr)
+  right_max = -1
+  (arr.length - 1).downto(0) do |i|
+    new_max = [right_max, arr[i]].max
+    arr[i] = right_max
+    right_max = new_max
   end
-  count
-end
-
-def explore_island(r,c,grid,visited)
-  return false if grid[r][c] == '0'
+  arr
 end

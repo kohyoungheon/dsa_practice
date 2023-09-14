@@ -101,3 +101,28 @@ def search_matrix(matrix, target)
 
   false
 end
+#________________________________
+#koko eating banana
+# Input: piles = [3,6,7,11], h = 8
+# Output: 4
+def min_eating_speed(piles, h)
+  l, r = 1, piles.max
+  res = r
+
+  while l <= r
+    k = (l + r) / 2
+
+    total_time = 0
+    piles.each do |p|
+      total_time += (p / k).ceil
+    end
+
+    if total_time <= h
+      res = k
+      r = k - 1
+    else
+      l = k + 1
+    end
+  end
+  res
+end

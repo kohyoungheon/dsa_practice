@@ -101,7 +101,22 @@ def find_max_average(nums, k)
   end
   answer
 end
-#___________________________________________-
-# Input: target = 7, nums = [2,3,1,2,4,3]
-# Output: 2
-# Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+#___________________________________________
+# Input: nums = [1,2,3,1], k = 3
+# Output: true
+#easy problem
+def contains_nearby_duplicate(nums, k)
+  window = Set.new
+  l = 0
+
+  nums.each_with_index do |num, r|
+    if r - l > k
+      window.delete(nums[l])
+      l += 1
+    end
+    return true if window.include?(num)
+    window.add(num)
+  end
+
+  false
+end
