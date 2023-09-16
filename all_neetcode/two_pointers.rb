@@ -83,3 +83,52 @@ def reverse_string(s)
     r -= 1
   end
 end
+# 88. Merge Sorted Array
+# Input: nums1 = [1,2,3,0,0,0], m = 3, nums2 = [2,5,6], n = 3
+# Output: [1,2,2,3,5,6]
+# Explanation: The arrays we are merging are [1,2,3] and [2,5,6].
+# The result of the merge is [1,2,2,3,5,6] with the underlined elements coming from nums1.
+def merge(nums1, m, nums2, n)
+  #last index
+  last = m + n - 1
+
+  #merge in reverse order
+  while m > 0 && n > 0
+    if nums1[m - 1] > nums2[n - 1]
+      nums1[last] = nums1[m - 1]
+      m -= 1
+    else
+      nums1[last] = nums2[n-1]
+      n -= 1
+    end
+    last -= 1
+  end
+  #fill nums1 with leftover nums2 elements
+  while n > 0
+    nums1[last] = nums2[n-1]
+    n = n - 1
+    last = last - 1
+  end
+end
+# Move Zeroes
+# Input: nums = [0,1,0,3,12]
+# Output: [1,3,12,0,0]
+def move_zeroes(nums)
+  l = 0
+  r = 0
+
+  while r < nums.length
+    if nums[r] != 0 #is a number
+      nums[l], nums[r] = nums[r], nums[l]
+      l += 1
+    end
+    r += 1
+  end
+
+  nums
+end
+# 26. Remove Duplicates from Sorted Array
+# Input: nums = [0,0,1,1,1,2,2,3,3,4]
+# Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
+# Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
+# It does not matter what you leave beyond the returned k (hence they are underscores).
