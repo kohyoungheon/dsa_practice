@@ -132,3 +132,40 @@ end
 # Output: 5, nums = [0,1,2,3,4,_,_,_,_,_]
 # Explanation: Your function should return k = 5, with the first five elements of nums being 0, 1, 2, 3, and 4 respectively.
 # It does not matter what you leave beyond the returned k (hence they are underscores).
+def remove_duplicates(nums)
+  l = 1
+
+  (1...nums.length).each do |r|
+    if nums[r] != nums[r - 1]
+      nums[l] = nums[r]
+      l += 1
+    end
+  end
+
+  l
+end
+# 80. Remove Duplicates from Sorted Array II
+# Input: nums = [0,0,1,1,1,1,2,3,3]
+# Output: 7, nums = [0,0,1,1,2,3,3,_,_]
+# Explanation: Your function should return k = 7, with the first seven elements of nums being 0, 0, 1, 1, 2, 3 and 3 respectively.
+# It does not matter what you leave beyond the returned k (hence they are underscores).
+def remove_duplicates(nums)
+  l, r = 0, 0
+
+  while r < nums.length
+    count = 1
+    while r + 1 < nums.length && nums[r] == nums[r + 1]
+      r += 1
+      count += 1
+    end
+
+    [2, count].min.times do
+      nums[l] = nums[r]
+      l += 1
+    end
+
+    r += 1
+  end
+
+  l
+end
