@@ -16,7 +16,7 @@ def num_of_subarrays(arr, k, threshold)
   end
 
   res
-# end
+end
 # 567. Permutation in String
 # Input: s1 = "ab", s2 = "eidbaooo"
 # Output: true
@@ -41,5 +41,82 @@ end
 # Explanation: Increment the first element three times and the second element two times to make nums = [4,4,4].
 # 4 has a frequency of 3.
 def max_frequency(nums, k)
-    
+    nums.sort!
+    l = 0
+    r = 0
+    res = 0
+    total = 0
+    while r < nums.length
+      total += nums[r]
+      while nums[r] * (r-l+1) > total + k
+        total -= nums[l]
+        l += 1
+      end
+      res = [res, r-l + 1].max
+      r += 1
+    end
+end
+# 904. Fruit Into Baskets
+# Input: fruits = [1,2,1]
+# Output: 3
+# Explanation: We can pick from all 3 trees.
+def total_fruit(fruits)
+  count = Hash.new(0)
+  l = 0
+  total = 0
+  res = 0
+
+  (0...fruits.length).each do |r|
+    count[fruits[r]] += 1
+    total += 1
+    while count.length > 2
+      f = fruits[l]
+      count[f] -= 1
+      total -= 1
+      l += 1
+      count.delete(f) if count[f] == 0
+    end
+    res = [res, total].max
+  end
+  res
+end
+# 1456. Maximum Number of Vowels in a Substring of Given Length
+# Input: s = "abciiidef", k = 3
+# Output: 3
+# Explanation: The substring "iii" contains 3 vowel letters.
+def max_vowels(s, k)
+  vowels = "aeiou"
+  l = 0
+  count = 0
+  res = 0
+  (0...s.length).each do |r|
+    count += 1 if vowels.include?(s[r])
+    if r - l + 1 > k
+      count -= 1 if vowels.include?(s[l])
+      l += 1
+    end
+    res = [res, count].max
+  end
+  res
+end
+# 209. Minimum Size Subarray Sum
+# Input: target = 7, nums = [2,3,1,2,4,3]
+# Output: 2
+# Explanation: The subarray [4,3] has the minimal length under the problem constraint.
+def min_sub_array_len(target, nums)
+  l = 0
+  total = 0
+  res = Float::INFINITY
+
+  (0...nums.length).each do |r|
+    total += nums[r]
+    while total >= target
+      res = [res, r - l + 1].min 
+      total -= nums[l]
+      l += 1
+    end
+  end
+
+  return 0 if res == Float::INFINITY
+  res
 end
